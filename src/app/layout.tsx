@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import Provider from './Provider';
 
 const NunitoFont = Nunito({
     subsets: ['latin'],
 });
+
 export const metadata: Metadata = {
     title: 'Booking App',
-    description: 'The boocking app for your life',
+    description: 'The booking app for your life',
 };
 
 export default function RootLayout({
@@ -19,7 +21,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${NunitoFont.className} bg-grey antialiased`}>
-                {children}
+                <Provider> {children}</Provider>
                 <Toaster />
             </body>
         </html>
