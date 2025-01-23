@@ -13,19 +13,32 @@ export default function UserMenu() {
         <div className="">
             <button onClick={() => setOpenPopover((prev) => !prev)}>
                 <Icon
-                    id={openPopover ? 'icon-close' : 'icon-menu'}
+                    id={
+                        openPopover && !openSettings
+                            ? 'icon-close'
+                            : 'icon-menu'
+                    }
                     w={30}
                     h={30}
                 />
             </button>
             <AnimatePresence>
-                {openPopover && (
+                {openPopover && !openSettings && (
                     <UserPopover
                         key="user-popover"
+                        closePopover={() => setOpenPopover(false)}
                         openSettings={() => setOpenSettings(true)}
                     />
                 )}
-                {openSettings && <UserSettings key="user-settings" />}
+                {openSettings && (
+                    <UserSettings
+                        closeSettings={() => {
+                            setOpenSettings(false);
+                            setOpenPopover(false);
+                        }}
+                        key="user-settings"
+                    />
+                )}
             </AnimatePresence>
         </div>
     );
