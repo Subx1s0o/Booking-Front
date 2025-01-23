@@ -20,7 +20,8 @@ export default function Button({
         <Component
             className={cn(`rounded-md text-base ${className}`, {
                 'bg-black text-white': variant === 'black',
-                'border-2 border-black font-medium': variant === 'outline',
+                'border-2 border-black bg-grey font-medium text-black':
+                    variant === 'outline',
             })}
         >
             {children}

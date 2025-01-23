@@ -34,7 +34,7 @@ export default function WelcomeButtons() {
             >
                 <Button asChild variant="outline" className="w-full py-2">
                     <Link
-                        href="/sign-up"
+                        href="/sign-in"
                         className="flex items-center justify-center"
                     >
                         Login
