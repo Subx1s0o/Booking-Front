@@ -1,11 +1,12 @@
-import { SignInType } from '@/components/forms/SignInForm/sign-in.schema';
+import { SignInType } from '@/components/forms/Auth/SignInForm/sign-in.schema';
 import { AxiosError } from 'axios';
 import { api } from './api';
 import { toast } from '@/hooks/use-toast';
-
+import Cookies from 'js-cookie';
 export const login = async (data: SignInType) => {
     try {
         const res = await api.post('/auth/login', data);
+        Cookies.set('session', res.data.sessionToken);
         return res.data;
     } catch (error) {
         if (error instanceof AxiosError) {

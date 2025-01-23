@@ -1,6 +1,6 @@
 'use client';
 
-import SignUpClientForm from '@/components/forms/SignUpClientForm/SignUpClientForm';
+import SignUpClientForm from '@/components/forms/Auth/SignUpClientForm/SignUpClientForm';
 import { motion } from 'framer-motion';
 
 export default function SignUpClient() {
@@ -10,7 +10,7 @@ export default function SignUpClient() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
-                className="mb-10 text-center text-lg"
+                className="mb-10 text-center text-lg font-bold"
             >
                 Create Your Client Account
             </motion.h1>

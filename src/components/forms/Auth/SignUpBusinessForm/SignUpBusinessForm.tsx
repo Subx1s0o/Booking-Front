@@ -8,15 +8,28 @@ import {
 } from './sign-up-business.schema';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { register } from '@/actions/register';
 
 export default function SignUpBusinessForm() {
-    const { control, handleSubmit } = useForm<SignUpBusinessType>({
+    const router = useRouter();
+    const {
+        control,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = useForm<SignUpBusinessType>({
         resolver: zodResolver(signUpBusinessSchema),
     });
 
     const onSubmit: SubmitHandler<SignUpBusinessType> = async (data) => {
-        console.log(data);
+        const result = await register({ ...data, role: 'business' });
+
+        if (result) {
+            router.push('/');
+        }
     };
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
             <div className="grid grid-cols-2 gap-5">
@@ -31,7 +44,23 @@ export default function SignUpBusinessForm() {
             <Input control={control} name="address" label="Address*" />
             <Input control={control} name="job" label="Your Job*" />
             <Input control={control} name="password" label="Password*" />
-            <Button variant="black">Sign Up</Button>
+            <motion.div
+                className="flex w-full flex-col gap-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
+            >
+                <Button variant="black" disabled={isSubmitting} type="submit">
+                    {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+                </Button>
+                <Button
+                    variant="outline"
+                    type="button"
+                    onClick={() => router.back()}
+                >
+                    Go Back
+                </Button>
+            </motion.div>
         </form>
     );
 }

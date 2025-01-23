@@ -1,8 +1,7 @@
 import SharedLayout from '@/components/common/SharedLayout';
-import AccountTypesList from '@/components/sections/SignUp/AccountTypesList';
+import AccountTypesList from '@/components/sections/Auth/SignUp/AccountTypesList';
 
-import ChooseAccountType from '@/components/sections/SignUp/ChooseAccountType';
-import React from 'react';
+import ChooseAccountType from '@/components/sections/Auth/SignUp/ChooseAccountType';
 
 export default function SignUpPage() {
     return (

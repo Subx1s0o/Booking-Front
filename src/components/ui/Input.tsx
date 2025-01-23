@@ -37,7 +37,7 @@ export default function Input({
                 )}
             />
             {errors[name] && (
-                <p className="text-sm text-red">
+                <p className="mt-1 text-xs text-red">
                     {errors[name].message?.toString()}
                 </p>
             )}

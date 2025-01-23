@@ -30,7 +30,7 @@ export const config = {
     matcher: [
         '/',
         '/sign-in',
-        '/sign-up',
+        '/sign-up/:path*',
         '/welcome',
         '/business',
         '/reservations',

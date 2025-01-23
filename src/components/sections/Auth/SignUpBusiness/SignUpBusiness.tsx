@@ -1,6 +1,6 @@
 'use client';
 
-import SignUpBusinessForm from '@/components/forms/SignUpBusinessForm/SignUpBusinessForm';
+import SignUpBusinessForm from '@/components/forms/Auth/SignUpBusinessForm/SignUpBusinessForm';
 import { motion } from 'framer-motion';
 
 export default function SignUpBusiness() {
@@ -10,7 +10,7 @@ export default function SignUpBusiness() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
-                className="mb-10 text-center text-lg"
+                className="mb-10 text-center text-lg font-bold"
             >
                 Create Your Business Account
             </motion.h1>
