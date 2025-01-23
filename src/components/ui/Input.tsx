@@ -16,7 +16,6 @@ export default function Input({
     ...inputProps
 }: FormInputProps) {
     const {
-        field,
         formState: { errors },
     } = useController({ control, name });
 
@@ -28,7 +27,6 @@ export default function Input({
                 </label>
             )}
             <input
-                {...field}
                 {...control.register(name)}
                 {...inputProps}
                 className={cn(

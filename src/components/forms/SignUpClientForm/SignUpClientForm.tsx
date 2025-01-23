@@ -3,15 +3,15 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { SignInSchema } from '../SignInForm/sign-in.schema';
 import {
-    signUpBusinessSchema,
-    SignUpBusinessSchema,
-} from './sign-up-business.schema';
+    SignUpClientSchema,
+    signUpClientSchema,
+} from './sign-up-client.schema';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 
-export default function SignUpBusinessForm() {
-    const { control, handleSubmit } = useForm<SignUpBusinessSchema>({
-        resolver: zodResolver(signUpBusinessSchema),
+export default function SignUpClientForm() {
+    const { control, handleSubmit } = useForm<SignUpClientSchema>({
+        resolver: zodResolver(signUpClientSchema),
     });
 
     const onSubmit: SubmitHandler<SignInSchema> = async (data) => {
@@ -28,8 +28,6 @@ export default function SignUpBusinessForm() {
                 />
             </div>
             <Input control={control} name="email" label="Email*" />
-            <Input control={control} name="address" label="Address*" />
-            <Input control={control} name="job" label="Your Job*" />
             <Input control={control} name="password" label="Password*" />
             <Button variant="black">Sign Up</Button>
         </form>
