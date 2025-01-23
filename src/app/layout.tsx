@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${NunitoFont.className} antialiased`}>
+            <body className={`${NunitoFont.className} bg-grey antialiased`}>
                 {children}
             </body>
         </html>
