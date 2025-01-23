@@ -18,7 +18,7 @@ export default function Button({
 
     return (
         <Component
-            className={cn(`rounded-md text-base ${className}`, {
+            className={cn(`w-full rounded-md py-2 text-base ${className}`, {
                 'bg-black text-white': variant === 'black',
                 'border-2 border-black bg-grey font-medium text-black':
                     variant === 'outline',

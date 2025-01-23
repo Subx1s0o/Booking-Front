@@ -14,7 +14,7 @@ export default function WelcomeButtons() {
                     duration: 0.5,
                 }}
             >
-                <Button asChild variant="black" className="w-full py-2">
+                <Button asChild variant="black" className="w-full">
                     <Link
                         href="/sign-up"
                         className="flex items-center justify-center"
@@ -32,7 +32,7 @@ export default function WelcomeButtons() {
                     duration: 0.5,
                 }}
             >
-                <Button asChild variant="outline" className="w-full py-2">
+                <Button asChild variant="outline" className="w-full">
                     <Link
                         href="/sign-in"
                         className="flex items-center justify-center"

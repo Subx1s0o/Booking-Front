@@ -6,10 +6,10 @@ export default function SharedLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="h-screen px-5">
-            <div className="flex h-full flex-col items-center justify-center">
+        <main className="h-screen px-5">
+            <section className="flex h-full flex-col justify-center">
                 <div className="max-w-screen-ms">{children}</div>
-            </div>
-        </div>
+            </section>
+        </main>
     );
 }

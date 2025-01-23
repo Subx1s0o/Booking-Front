@@ -31,7 +31,7 @@ export default function AccountTypesList() {
                         </p>
                     </li>
                 </ul>
-                <Button asChild variant="black" className="w-full py-2">
+                <Button asChild variant="black" className="w-full">
                     <Link
                         href="/sign-up/client"
                         className="flex items-center justify-center"
@@ -63,7 +63,7 @@ export default function AccountTypesList() {
                         </p>
                     </li>
                 </ul>
-                <Button asChild variant="outline" className="w-full py-2">
+                <Button asChild variant="outline" className="w-full">
                     <Link
                         href="/sign-up/business"
                         className="flex items-center justify-center"
