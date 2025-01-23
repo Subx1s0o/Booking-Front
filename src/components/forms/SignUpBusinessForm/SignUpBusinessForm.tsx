@@ -1,20 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { SignInSchema } from '../SignInForm/sign-in.schema';
+
 import {
     signUpBusinessSchema,
-    SignUpBusinessSchema,
+    SignUpBusinessType,
 } from './sign-up-business.schema';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 
 export default function SignUpBusinessForm() {
-    const { control, handleSubmit } = useForm<SignUpBusinessSchema>({
+    const { control, handleSubmit } = useForm<SignUpBusinessType>({
         resolver: zodResolver(signUpBusinessSchema),
     });
 
-    const onSubmit: SubmitHandler<SignInSchema> = async (data) => {
+    const onSubmit: SubmitHandler<SignUpBusinessType> = async (data) => {
         console.log(data);
     };
     return (

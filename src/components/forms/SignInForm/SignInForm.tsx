@@ -1,19 +1,25 @@
 'use client';
 import React from 'react';
 import Input from '../../ui/Input';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignInSchema, signInSchema } from './sign-in.schema';
+import { SignInType, signInSchema } from './sign-in.schema';
 import Button from '@/components/ui/Button';
 import { motion } from 'framer-motion';
+import { login } from '@/actions/login';
 
 export default function SignInForm() {
-    const { control, handleSubmit } = useForm<SignInSchema>({
+    const {
+        control,
+        handleSubmit,
+        formState: { isSubmitting },
+    } = useForm<SignInType>({
         resolver: zodResolver(signInSchema),
     });
 
-    const onSubmit: SubmitHandler<SignInSchema> = async (data) => {
+    const onSubmit: SubmitHandler<SignInType> = async (data) => {
         console.log(data);
+        await login(data);
     };
 
     return (
@@ -41,7 +47,9 @@ export default function SignInForm() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
             >
-                <Button variant="black">Login</Button>
+                <Button variant="black" disabled={isSubmitting}>
+                    {isSubmitting ? 'Loading...' : 'Login'}
+                </Button>
             </motion.div>
         </form>
     );

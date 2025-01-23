@@ -9,4 +9,4 @@ export const signUpClientSchema = z.object({
     password: z.string().min(1, { message: 'Password is required' }),
 });
 
-export type SignUpClientSchema = z.infer<typeof signUpClientSchema>;
+export type SignUpClientType = z.infer<typeof signUpClientSchema>;
