@@ -5,11 +5,12 @@ import Input from '@/components/ui/Input';
 import { useUserStore } from '@/hooks/useUserStore';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { UpdateUserType } from './update-user.schema';
+import { updateUserSchema, UpdateUserType } from './update-user.schema';
 import { useMutation } from '@tanstack/react-query';
 import { updateUser } from '@/actions/updateUser';
 import { User } from '@/types';
 import { toast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function UserSettingsForm({ close }: { close: () => void }) {
     const { user, setUser } = useUserStore();
@@ -27,6 +28,7 @@ export default function UserSettingsForm({ close }: { close: () => void }) {
             job: user?.job || undefined,
             address: user?.address || undefined,
         },
+        resolver: zodResolver(updateUserSchema),
     });
 
     const mutation = useMutation({

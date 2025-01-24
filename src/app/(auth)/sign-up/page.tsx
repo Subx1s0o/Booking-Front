@@ -6,7 +6,7 @@ import ReturnButton from '@/components/sections/Auth/SignUp/ReturnButton';
 
 export default function SignUpPage() {
     return (
-        <SharedLayout>
+        <SharedLayout mainClassName="min-h-[800px]">
             <ChooseAccountType />
             <AccountTypesList />
             <ReturnButton />

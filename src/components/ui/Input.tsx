@@ -30,7 +30,7 @@ export default function Input({
                 {...control.register(name)}
                 {...inputProps}
                 className={cn(
-                    `rounded-md border-2 border-black bg-transparent px-3 py-2 text-sm outline-none ${className}`,
+                    `rounded-md border-2 border-black bg-transparent px-3 py-2 text-base outline-none ${className}`,
                     {
                         'border-red': errors?.[name],
                     },
