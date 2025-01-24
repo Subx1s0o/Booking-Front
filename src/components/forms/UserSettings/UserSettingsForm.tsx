@@ -10,7 +10,6 @@ import { useMutation } from '@tanstack/react-query';
 import { updateUser } from '@/actions/updateUser';
 import { User } from '@/types';
 import { toast } from '@/hooks/use-toast';
-import { AxiosError } from 'axios';
 
 export default function UserSettingsForm({ close }: { close: () => void }) {
     const { user, setUser } = useUserStore();
@@ -64,6 +63,7 @@ export default function UserSettingsForm({ close }: { close: () => void }) {
             close();
         }
     };
+
     return (
         <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
             <Input

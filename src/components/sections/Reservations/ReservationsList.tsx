@@ -1,24 +1,27 @@
 'use client';
 
-import { fecthBusinessUser } from '@/actions/fetchBusinessUser';
 import { useQuery } from '@tanstack/react-query';
+import { fetchReservations } from '@/actions/fetchReservations';
 import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import BusinessUserItem from './BusinessUserItem';
+import ReservationItem from './ReservationItem';
 import { useState } from 'react';
-import { User } from '@/types';
-import BusinessUserModal from '@/components/modals/BusinessUserModal';
+import { useUserStore } from '@/hooks/useUserStore';
 import { AnimatePresence } from 'framer-motion';
+import ReservationModal from '@/components/modals/ReservationModal';
+export default function ReservationsList() {
+    const [choosedReservation, setChoosedReservation] =
+        useState<Reservation | null>(null);
 
-export default function BusinessUsersList() {
-    const [choosedBusinessUser, setChoosedBusinessUser] = useState<User | null>(
-        null,
-    );
-    const { data, isLoading, error } = useQuery({
-        queryKey: ['business-users'],
-        queryFn: async () => await fecthBusinessUser(),
+    const { data, isLoading, error } = useQuery<{
+        data: Reservation[];
+        total: number;
+    }>({
+        queryKey: ['reservations'],
+        queryFn: async () => await fetchReservations(),
         staleTime: 1000 * 60 * 60 * 24,
     });
+
+    const { user } = useUserStore();
 
     if (isLoading) {
         return (
@@ -51,29 +54,30 @@ export default function BusinessUsersList() {
             </ul>
         );
     }
-
     return (
         <>
             <ul className="flex flex-col gap-5">
                 {data?.data?.length && data?.data?.length > 0 ? (
-                    data?.data?.map((user) => (
-                        <BusinessUserItem
-                            key={user.id}
+                    data?.data?.map((reservation) => (
+                        <ReservationItem
+                            key={reservation.id}
+                            reservation={reservation}
                             user={user}
-                            choose={() => setChoosedBusinessUser(user)}
+                            choose={() => setChoosedReservation(reservation)}
                         />
                     ))
                 ) : (
                     <h1 className="text-balance text-center text-md font-semibold">
-                        No Business Users found at the moment
+                        No Reservations
                     </h1>
                 )}
             </ul>
             <AnimatePresence>
-                {choosedBusinessUser && (
-                    <BusinessUserModal
-                        user={choosedBusinessUser}
-                        close={() => setChoosedBusinessUser(null)}
+                {choosedReservation && (
+                    <ReservationModal
+                        user={user}
+                        reservation={choosedReservation}
+                        close={() => setChoosedReservation(null)}
                     />
                 )}
             </AnimatePresence>

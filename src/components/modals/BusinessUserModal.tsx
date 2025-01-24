@@ -5,6 +5,7 @@ import { User } from '@/types';
 import Button from '../ui/Button';
 import { createReservation } from '@/actions/createReservation';
 import { toast } from '@/hooks/use-toast';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function BusinessUserModal({
     user,
@@ -14,10 +15,12 @@ export default function BusinessUserModal({
     close: () => void;
 }) {
     const [isLoading, setIsLoading] = useState(false);
+    const queryClient = useQueryClient();
     const createReservationToBusinessUser = async (id: string) => {
         setIsLoading(true);
         const result = await createReservation(id);
         if (result) {
+            queryClient.invalidateQueries({ queryKey: ['reservations'] });
             toast({
                 title: 'Success',
                 description: 'Reservation maked successfully',

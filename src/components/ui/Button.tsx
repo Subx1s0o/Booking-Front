@@ -24,7 +24,7 @@ export default function Button({
                 `w-full rounded-md py-2 text-base disabled:bg-dark-grey disabled:text-white ${className}`,
                 {
                     'bg-black text-white': variant === 'black',
-                    'border-2 border-black bg-grey font-medium text-black':
+                    'border-2 border-black bg-transparent font-medium text-black':
                         variant === 'outline',
                 },
             )}
