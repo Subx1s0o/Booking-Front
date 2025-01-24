@@ -12,7 +12,7 @@ import { User } from '@/types';
 import { toast } from '@/hooks/use-toast';
 import { AxiosError } from 'axios';
 
-export default function UserSettingsForm() {
+export default function UserSettingsForm({ close }: { close: () => void }) {
     const { user, setUser } = useUserStore();
 
     const {
@@ -62,6 +62,7 @@ export default function UserSettingsForm() {
                     description: 'User updated successfully',
                     variant: 'default',
                 });
+                close();
             }
         } catch (err) {
             if (err instanceof AxiosError) {

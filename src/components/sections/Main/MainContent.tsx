@@ -9,21 +9,23 @@ export default function MainContent() {
     const { user } = useUserStore();
     const pathname = usePathname();
     return (
-        <div className="mt-24">
+        <div className="mb-10 mt-24">
             <div className="grid grid-cols-2 gap-5 text-center">
                 {user?.role === 'client' && (
                     <Link
                         className={cn('border border-b-black p-2', {
-                            'border-2': pathname === '/booking/business',
+                            'border-2 font-semibold':
+                                pathname === '/booking/business',
                         })}
                         href="/booking/business"
                     >
-                        Business Users
+                        Business
                     </Link>
                 )}
                 <Link
                     className={cn('border border-b-black p-2', {
-                        'border-2': pathname === '/booking/reservations',
+                        'border-2 font-semibold':
+                            pathname === '/booking/reservations',
                     })}
                     href="/booking/reservations"
                 >

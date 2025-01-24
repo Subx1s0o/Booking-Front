@@ -1,14 +1,13 @@
 import MainTemplate from '@/components/common/MainTemplate';
-import HomeSection from '@/components/sections/Home/HomeSection';
-import React from 'react';
+import MainSection from '@/components/sections/Main/MainSection';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <MainTemplate>
-            <main className="h-screen px-5">
-                <section className={`h-full`}>
+            <main className="px-5">
+                <section>
                     <div className="max-w-screen-ms">
-                        <HomeSection />
+                        <MainSection />
                         {children}
                     </div>
                 </section>

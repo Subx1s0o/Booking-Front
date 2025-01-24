@@ -22,7 +22,7 @@ export default function UserSettings({
                 <h2 className="mb-10 text-center text-md font-bold">
                     Settings
                 </h2>
-                <UserSettingsForm />
+                <UserSettingsForm close={closeSettings} />
             </div>
         </motion.div>
     );

@@ -1,3 +1,5 @@
+import BusinessSection from '@/components/sections/Business/BusinessSection';
+
 export default function Business() {
-    return <div>Business</div>;
+    return <BusinessSection />;
 }
