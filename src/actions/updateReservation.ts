@@ -1,11 +1,11 @@
 import { toast } from '@/hooks/use-toast';
 import { AxiosError } from 'axios';
 import { api } from './api';
-import { User } from '@/types';
+import { UpdateReservationType } from 'types/updateReservation';
 
 export const updateReservation = async (
     id: string,
-    data: Partial<User | { status: 'closed' }>,
+    data: UpdateReservationType | { status: 'closed' },
 ) => {
     try {
         const res = await api.patch(`/reservations/${id}`, data);

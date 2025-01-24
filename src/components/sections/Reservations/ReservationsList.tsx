@@ -8,10 +8,12 @@ import { useState } from 'react';
 import { useUserStore } from '@/hooks/useUserStore';
 import { AnimatePresence } from 'framer-motion';
 import ReservationModal from '@/components/modals/ReservationModal';
+import { Reservation } from '@/types';
+import EditReservations from '@/components/modals/EditReservations';
 export default function ReservationsList() {
     const [choosedReservation, setChoosedReservation] =
         useState<Reservation | null>(null);
-
+    const [isModalEditOpen, setIsModalEditOpen] = useState(false);
     const { data, isLoading, error } = useQuery<{
         data: Reservation[];
         total: number;
@@ -73,11 +75,23 @@ export default function ReservationsList() {
                 )}
             </ul>
             <AnimatePresence>
-                {choosedReservation && (
+                {choosedReservation && !isModalEditOpen && (
                     <ReservationModal
+                        key="reservation-modal"
                         user={user}
                         reservation={choosedReservation}
                         close={() => setChoosedReservation(null)}
+                        openEdit={() => setIsModalEditOpen(true)}
+                    />
+                )}
+                {isModalEditOpen && (
+                    <EditReservations
+                        key="edit-modal"
+                        reservation={choosedReservation}
+                        close={() => {
+                            setIsModalEditOpen(false);
+                            setChoosedReservation(null);
+                        }}
                     />
                 )}
             </AnimatePresence>

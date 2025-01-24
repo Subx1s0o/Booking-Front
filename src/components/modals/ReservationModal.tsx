@@ -1,16 +1,18 @@
 'use client';
 import { motion } from 'framer-motion';
-import { User } from '@/types';
+import { Reservation, User } from '@/types';
 import Button from '../ui/Button';
 import { useReservationManage } from '@/hooks/useReservationManage';
 export default function ReservationModal({
     user,
     reservation,
     close,
+    openEdit,
 }: {
     user: User | null;
     reservation: Reservation;
     close: () => void;
+    openEdit: () => void;
 }) {
     const { handleCloseReservation, handleDeleteReservation, isLoading } =
         useReservationManage(close);
@@ -33,34 +35,36 @@ export default function ReservationModal({
                         ? `${reservation.businessUser.firstName} ${reservation.businessUser.secondName}`
                         : `${reservation.clientUser.firstName} ${reservation.clientUser.secondName}`}
                 </h2>
-                <div className="mb-5 flex flex-col gap-3">
+                <ul className="mb-5 flex flex-col gap-3">
                     {user?.role === 'client' && (
-                        <p className="text-base">
+                        <li className="text-base">
                             <span className="font-semibold">Job:</span>{' '}
                             {reservation.businessUser.job}
-                        </p>
+                        </li>
                     )}
-                    <p className="text-base">
+                    <li className="text-base">
                         <span className="font-semibold">Email:</span>{' '}
                         {user?.role === 'client'
                             ? `${reservation.businessUser.email}`
                             : `${reservation.clientUser.email}`}
-                    </p>
+                    </li>
                     {user?.role === 'client' && (
-                        <p className="text-base">
+                        <li className="text-base">
                             <span className="font-semibold">Address:</span>{' '}
                             {reservation.businessUser.address}
-                        </p>
+                        </li>
                     )}
 
-                    <p className="text-base">
-                        <span className="font-semibold">Phone:</span> +
+                    <li className="text-base">
+                        <span className="font-semibold">Phone: </span>
                         {user?.role === 'client'
-                            ? `${reservation.businessUser.phone}`
-                            : `${reservation.clientUser.phone}`}
-                    </p>
+                            ? reservation.businessUser?.phone || '--'
+                            : user?.role === 'business'
+                              ? reservation.clientUser?.phone || '--'
+                              : '--'}
+                    </li>
 
-                    <p className="text-base">
+                    <li className="text-base">
                         <span className="font-semibold">Reservation Date:</span>{' '}
                         {reservation.reservationDate
                             ? new Date(
@@ -71,44 +75,60 @@ export default function ReservationModal({
                                   day: 'numeric',
                               })
                             : '--'}
-                    </p>
-                    <p className="text-base">
+                    </li>
+                    <li className="text-base">
                         <span className="font-semibold">Time:</span>{' '}
                         {reservation.time || '--'}
-                    </p>
-                    <p className="text-base">
+                    </li>
+                    <li className="text-base">
                         <span className="font-semibold">Duration Time:</span>{' '}
                         {reservation.duration
                             ? `${reservation.duration} minutes`
                             : '--'}
-                    </p>
-                    <p className="text-base">
+                    </li>
+                    <li className="text-base">
                         <span className="font-semibold">OpenedAt:</span>{' '}
                         {new Date(reservation.openedAt).toLocaleDateString(
                             'en-US',
                             { year: 'numeric', month: 'long', day: 'numeric' },
                         ) || '--'}
-                    </p>
+                    </li>
+                </ul>
+                <div className="flex flex-col gap-3">
+                    {reservation.status === 'opened' &&
+                        user?.role === 'business' && (
+                            <Button
+                                onClick={openEdit}
+                                variant="black"
+                                className="w-full py-3"
+                            >
+                                Edit Reservation
+                            </Button>
+                        )}
+                    {reservation.status === 'opened' ? (
+                        <Button
+                            disabled={isLoading}
+                            variant="outline"
+                            onClick={() =>
+                                handleCloseReservation(reservation.id)
+                            }
+                            className="py-3"
+                        >
+                            {isLoading ? 'Closing...' : 'Close'}
+                        </Button>
+                    ) : (
+                        <Button
+                            disabled={isLoading}
+                            variant="black"
+                            onClick={() =>
+                                handleDeleteReservation(reservation.id)
+                            }
+                            className="py-3"
+                        >
+                            {isLoading ? 'Deleting...' : 'Delete'}
+                        </Button>
+                    )}
                 </div>
-                {reservation.status === 'opened' ? (
-                    <Button
-                        disabled={isLoading}
-                        variant="outline"
-                        onClick={() => handleCloseReservation(reservation.id)}
-                        className="py-3"
-                    >
-                        {isLoading ? 'Closing...' : 'Close'}
-                    </Button>
-                ) : (
-                    <Button
-                        disabled={isLoading}
-                        variant="black"
-                        onClick={() => handleDeleteReservation(reservation.id)}
-                        className="py-3"
-                    >
-                        {isLoading ? 'Deleting...' : 'Delete'}
-                    </Button>
-                )}
             </div>
         </motion.div>
     );

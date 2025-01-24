@@ -47,27 +47,27 @@ export default function BusinessUserModal({
                 <h2 className="mb-5 text-center text-md font-bold">
                     {user.firstName} {user.secondName}
                 </h2>
-                <div className="mb-5 flex flex-col gap-3">
-                    <p className="text-base">
+                <ul className="mb-5 flex flex-col gap-3">
+                    <li className="text-base">
                         <span className="font-semibold">Job:</span> {user.job}
-                    </p>
-                    <p className="text-base">
+                    </li>
+                    <li className="text-base">
                         <span className="font-semibold">Email:</span>{' '}
                         {user.email}
-                    </p>
+                    </li>
                     {user.address && (
-                        <p className="text-base">
+                        <li className="text-base">
                             <span className="font-semibold">Address:</span>{' '}
                             {user.address}
-                        </p>
+                        </li>
                     )}
                     {user.phone && (
-                        <p className="text-base">
+                        <li className="text-base">
                             <span className="font-semibold">Phone:</span> +
                             {user.phone}
-                        </p>
+                        </li>
                     )}
-                </div>
+                </ul>
                 <Button
                     disabled={isLoading}
                     variant="black"

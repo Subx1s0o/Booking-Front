@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { Reservation } from '@/types';
 import { User } from 'types/user';
 export default function BusinessUserItem({
     reservation,
@@ -21,7 +22,9 @@ export default function BusinessUserItem({
                         : `${reservation.clientUser.firstName} ${reservation.clientUser.secondName}`}
                 </h2>
                 <span className="text-sm text-gray-600">
-                    {reservation.businessUser.job}
+                    {user?.role === 'client'
+                        ? reservation.businessUser.job
+                        : 'Client'}
                 </span>
             </div>
             <span

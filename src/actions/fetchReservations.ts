@@ -1,6 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { api } from './api';
 import { toast } from '@/hooks/use-toast';
+import { Reservation } from '@/types';
 
 export const fetchReservations = async (
     page: number = 1,

@@ -2,6 +2,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { api } from './api';
 
 import { toast } from '@/hooks/use-toast';
+import { Reservation } from '@/types';
 
 export const deleteReservation = async (id: string) => {
     try {

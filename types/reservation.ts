@@ -1,4 +1,4 @@
-type Reservation = {
+export type Reservation = {
     id: string;
     clientUserId: string;
     businessUserId: string;
