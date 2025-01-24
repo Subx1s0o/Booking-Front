@@ -14,11 +14,11 @@ export default function SignUpClientForm() {
     const {
         control,
         handleSubmit,
-        formState: { isSubmitting },
+        formState: { isSubmitting, errors },
     } = useForm<SignUpClientType>({
         resolver: zodResolver(signUpClientSchema),
     });
-
+    console.log(errors);
     const onSubmit: SubmitHandler<SignUpClientType> = async (data) => {
         const result = await register({ ...data, role: 'client' });
         if (result) {
