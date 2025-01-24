@@ -14,6 +14,7 @@ export default {
                 xl: '1280px',
             },
             colors: {
+                white: '#fffbfb',
                 black: '#231F20',
                 red: '#BB4430',
                 vanilla: '#F3DFA2',
