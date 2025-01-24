@@ -1,13 +1,8 @@
 'use client';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { User } from '@/types';
 import Button from '../ui/Button';
-import { useQueryClient } from '@tanstack/react-query';
-import { updateReservation } from '@/actions/updateReservation';
-import { toast } from '@/hooks/use-toast';
-import { deleteReservation } from '@/actions/deleteReservation';
-
+import { useReservationManage } from '@/hooks/useReservationManage';
 export default function ReservationModal({
     user,
     reservation,
@@ -17,39 +12,9 @@ export default function ReservationModal({
     reservation: Reservation;
     close: () => void;
 }) {
-    const [isLoading, setIsLoading] = useState(false);
-    const queryClient = useQueryClient();
-    const handleCloseReservation = async (id: string) => {
-        setIsLoading(true);
-        const result = await updateReservation(id, { status: 'closed' });
-        if (result) {
-            queryClient.invalidateQueries({ queryKey: ['reservations'] });
-            toast({
-                title: 'Success',
-                description: 'Reservation closed successfully',
-                variant: 'default',
-            });
-            setIsLoading(false);
-            close();
-        }
-        setIsLoading(false);
-    };
+    const { handleCloseReservation, handleDeleteReservation, isLoading } =
+        useReservationManage(close);
 
-    const handleDeleteReservation = async (id: string) => {
-        setIsLoading(true);
-        const result = await deleteReservation(id);
-        if (result) {
-            queryClient.invalidateQueries({ queryKey: ['reservations'] });
-            toast({
-                title: 'Success',
-                description: 'Reservation closed successfully',
-                variant: 'default',
-            });
-            setIsLoading(false);
-            close();
-        }
-        setIsLoading(false);
-    };
     return (
         <motion.div
             onClick={close}
