@@ -38,7 +38,7 @@ export default function WelcomeText() {
                 src="/images/click.png"
                 width={100}
                 height={100}
-                className="h-[100px] w-[100px]"
+                className="size-[100px]"
                 alt="dsds"
             />
         </div>

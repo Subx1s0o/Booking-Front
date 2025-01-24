@@ -23,12 +23,17 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/', request.url));
     }
 
+    if (user && url.pathname === '/') {
+        return NextResponse.redirect(new URL('/booking/business', request.url));
+    }
+
     return NextResponse.next();
 }
 
 export const config = {
     matcher: [
         '/',
+        '/booking/:path*',
         '/sign-in',
         '/sign-up/:path*',
         '/welcome',

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import Provider from './Provider';
+import Provider from '../components/common/Provider';
 
 const NunitoFont = Nunito({
     subsets: ['latin'],
