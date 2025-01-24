@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function AccountTypesList() {
     return (
-        <ul className="flex flex-col gap-5">
+        <ul className="mb-10 flex flex-col gap-5">
             <motion.li
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -63,7 +63,7 @@ export default function AccountTypesList() {
                         </p>
                     </li>
                 </ul>
-                <Button asChild variant="outline" className="w-full">
+                <Button asChild variant="outline" className="w-full !bg-grey">
                     <Link
                         href="/sign-up/business"
                         className="flex items-center justify-center"
