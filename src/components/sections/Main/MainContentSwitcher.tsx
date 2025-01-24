@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function MainContent() {
+export default function MainContentSwitcher() {
     const pathname = usePathname();
     return (
         <div className="mb-10 mt-24">

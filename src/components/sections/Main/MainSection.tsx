@@ -1,10 +1,11 @@
 import Header from '../Header/Header';
-import MainContent from './MainContent';
+import MainContentSwitcher from './MainContentSwitcher';
+
 export default function HomeSection() {
     return (
         <>
             <Header />
-            <MainContent />
+            <MainContentSwitcher />
         </>
     );
 }
