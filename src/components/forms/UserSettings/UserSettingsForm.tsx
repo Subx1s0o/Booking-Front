@@ -54,24 +54,14 @@ export default function UserSettingsForm({ close }: { close: () => void }) {
             phone: data.phone ? Number(data.phone) : undefined,
         };
 
-        try {
-            const result = await mutation.mutateAsync(updatedData);
-            if (result) {
-                toast({
-                    title: 'Success',
-                    description: 'User updated successfully',
-                    variant: 'default',
-                });
-                close();
-            }
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                toast({
-                    title: 'Error',
-                    description: err.message || 'An unexpected error occurred',
-                    variant: 'default',
-                });
-            }
+        const result = await mutation.mutateAsync(updatedData);
+        if (result) {
+            toast({
+                title: 'Success',
+                description: 'User updated successfully',
+                variant: 'default',
+            });
+            close();
         }
     };
     return (

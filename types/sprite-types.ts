@@ -4,4 +4,5 @@ export type SpriteTypes =
     | 'icon-exit'
     | 'icon-settings'
     | 'icon-github'
-    | 'icon-support';
+    | 'icon-support'
+    | 'icon-arrow';

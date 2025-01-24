@@ -3,7 +3,7 @@ import Icon from '@/components/ui/Icon';
 import { useState } from 'react';
 import UserPopover from './UserPopover';
 import { AnimatePresence } from 'framer-motion';
-import UserSettings from '@/components/modals/UserSettings';
+import UserSettingsModal from '@/components/modals/UserSettingsModal';
 
 export default function UserMenu() {
     const [openPopover, setOpenPopover] = useState(false);
@@ -31,7 +31,7 @@ export default function UserMenu() {
                     />
                 )}
                 {openSettings && (
-                    <UserSettings
+                    <UserSettingsModal
                         closeSettings={() => {
                             setOpenSettings(false);
                             setOpenPopover(false);

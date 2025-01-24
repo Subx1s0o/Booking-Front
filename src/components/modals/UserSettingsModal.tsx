@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import UserSettingsForm from '../forms/UserSettings/UserSettingsForm';
 
-export default function UserSettings({
+export default function UserSettingsModal({
     closeSettings,
 }: {
     closeSettings: () => void;
