@@ -33,17 +33,43 @@ export default function SignUpBusinessForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
             <div className="grid grid-cols-2 gap-5">
-                <Input control={control} name="firstName" label="First Name*" />
                 <Input
                     control={control}
+                    placeholder="First name"
+                    name="firstName"
+                    label="First Name*"
+                />
+                <Input
+                    control={control}
+                    placeholder="Second name"
                     name="secondName"
                     label="Second Name*"
                 />
             </div>
-            <Input control={control} name="email" label="Email*" />
-            <Input control={control} name="address" label="Address*" />
-            <Input control={control} name="job" label="Your Job*" />
-            <Input control={control} name="password" label="Password*" />
+            <Input
+                control={control}
+                placeholder="Enter your email"
+                name="email"
+                label="Email*"
+            />
+            <Input
+                control={control}
+                placeholder="Enter your address"
+                name="address"
+                label="Address*"
+            />
+            <Input
+                control={control}
+                placeholder="Enter your job"
+                name="job"
+                label="Your Job*"
+            />
+            <Input
+                control={control}
+                placeholder="Enter your password"
+                name="password"
+                label="Password*"
+            />
             <motion.div
                 className="flex w-full flex-col gap-2"
                 initial={{ opacity: 0 }}

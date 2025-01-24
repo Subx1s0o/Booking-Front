@@ -37,14 +37,24 @@ export default function SignInForm() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
             >
-                <Input control={control} name="email" label="Email" />
+                <Input
+                    control={control}
+                    placeholder="Enter your email"
+                    name="email"
+                    label="Email"
+                />
             </motion.div>
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.5 }}
             >
-                <Input control={control} name="password" label="Password" />
+                <Input
+                    control={control}
+                    placeholder="Enter your password"
+                    name="password"
+                    label="Password"
+                />
             </motion.div>
             <motion.div
                 className="flex w-full flex-col gap-2"

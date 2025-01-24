@@ -13,7 +13,7 @@ export default function AccountTypesList() {
                 className="rounded-xl border-2 border-black px-5 py-7"
             >
                 <h2 className="mb-3 text-md">Client</h2>
-                <h3 className="text-base">We offer:</h3>
+                <h3 className="mb-1 text-base">We offer:</h3>
                 <ul className="mb-5 ml-10 list-disc">
                     <li>
                         <p className="text-sm">
@@ -47,7 +47,7 @@ export default function AccountTypesList() {
                 className="rounded-xl bg-black px-5 py-7 text-white"
             >
                 <h2 className="mb-3 text-md">Business</h2>
-                <h3 className="text-base">We offer:</h3>
+                <h3 className="mb-1 text-base">We offer:</h3>
                 <ul className="mb-5 ml-10 list-disc">
                     <li>
                         <p className="text-sm">
