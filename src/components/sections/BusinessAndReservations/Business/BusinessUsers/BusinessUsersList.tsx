@@ -32,6 +32,7 @@ export default function BusinessUsersList() {
     }, [data, page]);
 
     const loadMore = () => {
+        if (!hasMore || isLoadingMore) return;
         setIsLoadingMore(true);
         setPage((prevPage) => prevPage + 1);
     };

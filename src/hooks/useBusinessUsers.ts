@@ -6,13 +6,6 @@ const useBusinessUsers = (page: number) => {
     const queryOptions: UseQueryOptions<PaginationResponse<User>> = {
         queryKey: ['business-users', page],
         queryFn: async () => {
-            const shouldThrowError = Math.random() > 0.5;
-            if (shouldThrowError) {
-                throw new Error(
-                    'Simulated error: Failed to fetch business users',
-                );
-            }
-
             const response = await fetchBusinessUser(page);
             if (!response) {
                 return { data: [], total: 0, page: 0, totalPages: 0 };
