@@ -1,4 +1,4 @@
-import ReservationsSection from '@/components/sections/Reservations/ReservationsSection';
+import ReservationsSection from '@/components/sections/BusinessAndReservations/Reservations/ReservationsSection';
 import React from 'react';
 
 export default function Reservations() {

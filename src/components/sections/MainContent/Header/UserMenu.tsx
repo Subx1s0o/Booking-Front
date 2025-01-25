@@ -1,7 +1,7 @@
 'use client';
 import Icon from '@/components/ui/Icon';
 import { useState } from 'react';
-import UserPopover from '../../modals/UserPopover';
+import UserPopover from '@/components/modals/UserPopover';
 import { AnimatePresence } from 'framer-motion';
 import UserSettingsModal from '@/components/modals/UserSettingsModal';
 

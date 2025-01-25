@@ -1,6 +1,7 @@
 import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
-export default function ReservationLoader() {
+export default function SkeletonLoader() {
     return (
         <ul className="flex flex-col gap-5">
             {Array.from({ length: 5 }, (_, index) => (

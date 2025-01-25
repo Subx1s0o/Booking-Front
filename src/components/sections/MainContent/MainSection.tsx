@@ -1,4 +1,4 @@
-import Header from '../Header/Header';
+import Header from './Header/Header';
 import MainContentSwitcher from './MainContentSwitcher';
 
 export default function HomeSection() {

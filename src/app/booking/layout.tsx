@@ -1,5 +1,5 @@
 import MainTemplate from '@/components/common/MainTemplate';
-import MainSection from '@/components/sections/Main/MainSection';
+import MainSection from '@/components/sections/MainContent/MainSection';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (

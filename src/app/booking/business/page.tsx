@@ -1,4 +1,4 @@
-import BusinessSection from '@/components/sections/Business/BusinessSection';
+import BusinessSection from '@/components/sections/BusinessAndReservations/Business/BusinessSection';
 
 export default function Business() {
     return <BusinessSection />;

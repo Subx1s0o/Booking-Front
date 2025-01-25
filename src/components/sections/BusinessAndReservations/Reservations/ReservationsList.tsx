@@ -8,8 +8,8 @@ import { AnimatePresence } from 'framer-motion';
 import { Reservation } from 'types/reservation';
 import ErrorFallback from './ErrorFallback';
 import ReservationItem from './ReservationItem';
-import ReservationLoader from './ReservationLoader';
 import { useUserStore } from '@/hooks/useUserStore';
+import SkeletonLoader from '../../Loader/SkeletonLoader';
 
 export default function ReservationsList() {
     const {
@@ -30,11 +30,13 @@ export default function ReservationsList() {
     });
 
     if (isLoading) {
-        return <ReservationLoader />;
+        return <SkeletonLoader />;
     }
 
     if (error) {
-        return <ErrorFallback />;
+        return (
+            <ErrorFallback message="There was an error loading the reservations." />
+        );
     }
 
     return (
