@@ -3,7 +3,7 @@ import SignUpBusiness from '@/components/sections/Auth/SignUpBusiness/SignUpBusi
 
 export default function BusinessSignUpPage() {
     return (
-        <SharedLayout className="min-h-[850px]">
+        <SharedLayout className="min-h-[650px]">
             <SignUpBusiness />
         </SharedLayout>
     );

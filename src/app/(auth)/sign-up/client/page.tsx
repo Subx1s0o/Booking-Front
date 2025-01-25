@@ -3,7 +3,7 @@ import SignUpClient from '@/components/sections/Auth/SignUpClient/SignUpClient';
 
 export default function ClientSignUpPage() {
     return (
-        <SharedLayout className="min-h-[850px]">
+        <SharedLayout className="min-h-[450px]">
             <SignUpClient />
         </SharedLayout>
     );
