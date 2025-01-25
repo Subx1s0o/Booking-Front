@@ -1,15 +1,14 @@
 'use client';
-import { fetchReservations } from '@/actions/fetchReservations';
 import EditReservations from '@/components/modals/EditReservations';
 import ReservationModal from '@/components/modals/ReservationModal';
+import LoadMoreButton from '@/components/ui/LoadMoreButton';
 import { useReservationModals } from '@/hooks/useReservationModals';
-import { useQuery } from '@tanstack/react-query';
+import { useReservations } from '@/hooks/useReservations';
+import { useUserStore } from '@/hooks/useUserStore';
 import { AnimatePresence } from 'framer-motion';
-import { Reservation } from 'types/reservation';
+import SkeletonLoader from '../../Loading/SkeletonLoader';
 import ErrorFallback from './ErrorFallback';
 import ReservationItem from './ReservationItem';
-import { useUserStore } from '@/hooks/useUserStore';
-import SkeletonLoader from '../../Loader/SkeletonLoader';
 
 export default function ReservationsList() {
     const {
@@ -20,16 +19,11 @@ export default function ReservationsList() {
         closeModals,
     } = useReservationModals();
     const { user } = useUserStore();
-    const { data, isLoading, error } = useQuery<{
-        data: Reservation[];
-        total: number;
-    }>({
-        queryKey: ['reservations'],
-        queryFn: async () => await fetchReservations(),
-        staleTime: 1000 * 60 * 60 * 24,
-    });
 
-    if (isLoading) {
+    const { reservations, error, hasMore, loadMore, isLoadingMore } =
+        useReservations(1);
+
+    if (!reservations.length) {
         return <SkeletonLoader />;
     }
 
@@ -40,10 +34,10 @@ export default function ReservationsList() {
     }
 
     return (
-        <>
-            <ul className="mb-10 flex flex-col gap-5">
-                {data?.data?.length && data?.data?.length > 0 ? (
-                    data?.data?.map((reservation) => (
+        <div className="mb-10">
+            <ul className="flex flex-col gap-5">
+                {reservations.length ? (
+                    reservations.map((reservation) => (
                         <ReservationItem
                             key={reservation.id}
                             reservation={reservation}
@@ -57,6 +51,17 @@ export default function ReservationsList() {
                     </h1>
                 )}
             </ul>
+
+            {hasMore && !isLoadingMore && (
+                <LoadMoreButton loadMore={loadMore} />
+            )}
+
+            {isLoadingMore && (
+                <div className="mt-5 w-full text-center">
+                    <span className="loader"></span>
+                </div>
+            )}
+
             <AnimatePresence>
                 {choosedReservation && !isModalEditOpen && (
                     <ReservationModal
@@ -75,6 +80,6 @@ export default function ReservationsList() {
                     />
                 )}
             </AnimatePresence>
-        </>
+        </div>
     );
 }

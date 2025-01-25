@@ -1,48 +1,19 @@
 import BusinessUserModal from '@/components/modals/BusinessUserModal';
 import Button from '@/components/ui/Button';
-import useBusinessUsers from '@/hooks/useBusinessUsers';
+import { useBusinessUsers } from '@/hooks/useBusinessUsers';
 import { AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { User } from 'types/user';
 import ErrorFallback from '../../Reservations/ErrorFallback';
 import BusinessUserItem from './BusinessUserItem';
-import SkeletonLoader from '@/components/sections/Loader/SkeletonLoader';
+import SkeletonLoader from '@/components/sections/Loading/SkeletonLoader';
 
 export default function BusinessUsersList() {
-    const [businessUsers, setBusinessUsers] = useState<User[]>([]);
     const [choosedBusinessUser, setChoosedBusinessUser] = useState<User | null>(
         null,
     );
-    const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(false);
-    const [isLoadingMore, setIsLoadingMore] = useState(false);
-
-    const { data, error } = useBusinessUsers(page);
-
-    useEffect(() => {
-        if (data) {
-            if (page === 1) {
-                setBusinessUsers(data.data);
-            } else {
-                setBusinessUsers((prev) => [...prev, ...data.data]);
-            }
-            setHasMore(page < data.totalPages);
-            setIsLoadingMore(false);
-        }
-    }, [data, page]);
-
-    const loadMore = () => {
-        if (!hasMore || isLoadingMore) return;
-        setIsLoadingMore(true);
-        setPage((prevPage) => prevPage + 1);
-    };
-
-    useEffect(() => {
-        return () => {
-            setBusinessUsers([]);
-            setPage(1);
-        };
-    }, []);
+    const { businessUsers, error, hasMore, loadMore, isLoadingMore } =
+        useBusinessUsers(1);
 
     if (error) {
         return (

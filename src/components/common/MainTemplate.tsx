@@ -4,7 +4,7 @@ import { fecthUser } from '@/actions/fecthUser';
 import { logout } from '@/actions/logout';
 import { useUserStore } from '@/hooks/useUserStore';
 import { useQuery } from '@tanstack/react-query';
-import Loader from '../sections/Loader/Loader';
+import Loader from '../sections/Loading/Loader';
 import { useEffect } from 'react';
 
 export default function MainTemplate({
@@ -16,7 +16,6 @@ export default function MainTemplate({
         queryKey: ['users'],
         queryFn: fecthUser,
         staleTime: 1000 * 60 * 60 * 30,
-        
     });
 
     const { setUser } = useUserStore();
