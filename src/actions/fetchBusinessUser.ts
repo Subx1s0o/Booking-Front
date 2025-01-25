@@ -1,12 +1,15 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { api } from './api';
-import { User } from 'types/user';
-import { toast } from '@/hooks/use-toast';
 
-export const fecthBusinessUser = async (page = 1, limit = 10) => {
+import { toast } from '@/hooks/use-toast';
+import { User } from 'types/user';
+import { PaginationResponse } from 'types/pagination-response';
+
+export const fetchBusinessUser = async (page = 1, limit = 7) => {
     try {
-        const res: AxiosResponse<{ data: User[]; total: number }> =
-            await api.get(`/users/business?page=${page}&limit=${limit}`);
+        const res: AxiosResponse<PaginationResponse<User>> = await api.get(
+            `/users/business?page=${page}&limit=${limit}`,
+        );
         return res.data;
     } catch (error) {
         if (error instanceof AxiosError) {

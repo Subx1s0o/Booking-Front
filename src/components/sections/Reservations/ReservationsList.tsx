@@ -1,19 +1,25 @@
 'use client';
-
-import { useQuery } from '@tanstack/react-query';
 import { fetchReservations } from '@/actions/fetchReservations';
-import Skeleton from 'react-loading-skeleton';
-import ReservationItem from './ReservationItem';
-import { useState } from 'react';
-import { useUserStore } from '@/hooks/useUserStore';
-import { AnimatePresence } from 'framer-motion';
-import ReservationModal from '@/components/modals/ReservationModal';
-import { Reservation } from '@/types';
 import EditReservations from '@/components/modals/EditReservations';
+import ReservationModal from '@/components/modals/ReservationModal';
+import { useReservationModals } from '@/hooks/useReservationModals';
+import { useQuery } from '@tanstack/react-query';
+import { AnimatePresence } from 'framer-motion';
+import { Reservation } from 'types/reservation';
+import ErrorFallback from './ErrorFallback';
+import ReservationItem from './ReservationItem';
+import ReservationLoader from './ReservationLoader';
+import { useUserStore } from '@/hooks/useUserStore';
+
 export default function ReservationsList() {
-    const [choosedReservation, setChoosedReservation] =
-        useState<Reservation | null>(null);
-    const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+    const {
+        choosedReservation,
+        setChoosedReservation,
+        isModalEditOpen,
+        openEditModal,
+        closeModals,
+    } = useReservationModals();
+    const { user } = useUserStore();
     const { data, isLoading, error } = useQuery<{
         data: Reservation[];
         total: number;
@@ -23,42 +29,17 @@ export default function ReservationsList() {
         staleTime: 1000 * 60 * 60 * 24,
     });
 
-    const { user } = useUserStore();
-
     if (isLoading) {
-        return (
-            <ul className="flex flex-col gap-5">
-                <Skeleton
-                    borderRadius={12}
-                    baseColor="#21212105"
-                    style={{ padding: '36px 0' }}
-                />
-                <Skeleton
-                    borderRadius={12}
-                    baseColor="#21212105"
-                    style={{ padding: '36px 0' }}
-                />
-                <Skeleton
-                    borderRadius={12}
-                    baseColor="#21212105"
-                    style={{ padding: '36px 0' }}
-                />
-                <Skeleton
-                    borderRadius={12}
-                    baseColor="#21212105"
-                    style={{ padding: '36px 0' }}
-                />
-                <Skeleton
-                    borderRadius={12}
-                    baseColor="#21212105"
-                    style={{ padding: '36px 0' }}
-                />
-            </ul>
-        );
+        return <ReservationLoader />;
     }
+
+    if (error) {
+        return <ErrorFallback />;
+    }
+
     return (
         <>
-            <ul className="flex flex-col gap-5">
+            <ul className="mb-10 flex flex-col gap-5">
                 {data?.data?.length && data?.data?.length > 0 ? (
                     data?.data?.map((reservation) => (
                         <ReservationItem
@@ -78,20 +59,17 @@ export default function ReservationsList() {
                 {choosedReservation && !isModalEditOpen && (
                     <ReservationModal
                         key="reservation-modal"
-                        user={user}
                         reservation={choosedReservation}
-                        close={() => setChoosedReservation(null)}
-                        openEdit={() => setIsModalEditOpen(true)}
+                        close={closeModals}
+                        user={user}
+                        openEdit={openEditModal}
                     />
                 )}
                 {isModalEditOpen && (
                     <EditReservations
                         key="edit-modal"
                         reservation={choosedReservation}
-                        close={() => {
-                            setIsModalEditOpen(false);
-                            setChoosedReservation(null);
-                        }}
+                        close={closeModals}
                     />
                 )}
             </AnimatePresence>

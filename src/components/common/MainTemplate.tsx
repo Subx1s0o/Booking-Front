@@ -15,6 +15,8 @@ export default function MainTemplate({
     const { data, error, isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: fecthUser,
+        staleTime: 1000 * 60 * 60 * 30,
+        
     });
 
     const { setUser } = useUserStore();

@@ -2,7 +2,7 @@ export type Reservation = {
     id: string;
     clientUserId: string;
     businessUserId: string;
-    reservationDate: string | null;
+    reservationDate: string | null | undefined;
     openedAt: string;
     time: string | null;
     duration: number | null;

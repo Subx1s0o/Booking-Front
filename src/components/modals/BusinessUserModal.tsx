@@ -29,7 +29,9 @@ export default function BusinessUserModal({
             setIsLoading(false);
             close();
         }
+
         setIsLoading(false);
+        close();
     };
     return (
         <motion.div

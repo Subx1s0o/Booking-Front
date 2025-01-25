@@ -6,7 +6,7 @@ import { useUserStore } from '@/hooks/useUserStore';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { updateUserSchema, UpdateUserType } from './update-user.schema';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateUser } from '@/actions/updateUser';
 import { User } from '@/types';
 import { toast } from '@/hooks/use-toast';
@@ -14,7 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function UserSettingsForm({ close }: { close: () => void }) {
     const { user, setUser } = useUserStore();
-
+    const queryClient = useQueryClient();
     const {
         control,
         handleSubmit,
@@ -35,6 +35,7 @@ export default function UserSettingsForm({ close }: { close: () => void }) {
         mutationKey: ['users'],
         mutationFn: updateUser,
         onSuccess: (data: User) => {
+            queryClient.invalidateQueries({ queryKey: ['users'] });
             setUser(data);
         },
         onError: (error) => {

@@ -1,17 +1,14 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { api } from './api';
 import { toast } from '@/hooks/use-toast';
-import { Reservation } from '@/types';
+import { PaginationResponse, Reservation } from '@/types';
 
 export const fetchReservations = async (
     page: number = 1,
     limit: number = 10,
-): Promise<{
-    data: Reservation[];
-    total: number;
-}> => {
+): Promise<PaginationResponse<Reservation>> => {
     try {
-        const res: AxiosResponse<{ data: Reservation[]; total: number }> =
+        const res: AxiosResponse<PaginationResponse<Reservation>> =
             await api.get(`/reservations?page=${page}&limit=${limit}`);
         return res.data;
     } catch (error) {
@@ -31,6 +28,6 @@ export const fetchReservations = async (
             });
         }
 
-        return { data: [], total: 0 };
+        return {} as PaginationResponse<Reservation>;
     }
 };
