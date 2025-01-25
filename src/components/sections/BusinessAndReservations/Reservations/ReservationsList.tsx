@@ -6,8 +6,8 @@ import { useReservationModals } from '@/hooks/useReservationModals';
 import { useReservations } from '@/hooks/useReservations';
 import { useUserStore } from '@/hooks/useUserStore';
 import { AnimatePresence } from 'framer-motion';
-import SkeletonLoader from '../../Loading/SkeletonLoader';
-import ErrorFallback from './ErrorFallback';
+import SkeletonLoader from '@/components/common/SkeletonLoader';
+import ErrorFallback from '@/components/common/ErrorFallback';
 import ReservationItem from './ReservationItem';
 
 export default function ReservationsList() {

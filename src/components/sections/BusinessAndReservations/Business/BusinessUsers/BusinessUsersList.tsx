@@ -4,9 +4,9 @@ import { useBusinessUsers } from '@/hooks/useBusinessUsers';
 import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { User } from 'types/user';
-import ErrorFallback from '../../Reservations/ErrorFallback';
+import ErrorFallback from '@/components/common/ErrorFallback';
 import BusinessUserItem from './BusinessUserItem';
-import SkeletonLoader from '@/components/sections/Loading/SkeletonLoader';
+import SkeletonLoader from '@/components/common/SkeletonLoader';
 
 export default function BusinessUsersList() {
     const [choosedBusinessUser, setChoosedBusinessUser] = useState<User | null>(
