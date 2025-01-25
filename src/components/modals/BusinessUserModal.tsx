@@ -6,6 +6,7 @@ import Button from '../ui/Button';
 import { createReservation } from '@/actions/createReservation';
 import { toast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
+import { UserInfo } from './components/UserInfo';
 
 export default function BusinessUserModal({
     user,
@@ -50,24 +51,13 @@ export default function BusinessUserModal({
                     {user.firstName} {user.secondName}
                 </h2>
                 <ul className="mb-5 flex flex-col gap-3">
-                    <li className="text-base">
-                        <span className="font-semibold">Job:</span> {user.job}
-                    </li>
-                    <li className="text-base">
-                        <span className="font-semibold">Email:</span>{' '}
-                        {user.email}
-                    </li>
+                    {user.job && <UserInfo label="Job" value={user.job} />}
+                    <UserInfo label="Email" value={user.email} />
                     {user.address && (
-                        <li className="text-base">
-                            <span className="font-semibold">Address:</span>{' '}
-                            {user.address}
-                        </li>
+                        <UserInfo label="Address" value={user.address} />
                     )}
                     {user.phone && (
-                        <li className="text-base">
-                            <span className="font-semibold">Phone:</span> +
-                            {user.phone}
-                        </li>
+                        <UserInfo label="Phone" value={`+${user.phone}`} />
                     )}
                 </ul>
                 <Button
@@ -76,7 +66,7 @@ export default function BusinessUserModal({
                     onClick={() => createReservationToBusinessUser(user.id)}
                     className="py-3"
                 >
-                    {isLoading ? 'Loading...' : 'Make an reservation'}
+                    {isLoading ? 'Loading...' : 'Make a reservation'}
                 </Button>
             </div>
         </motion.div>

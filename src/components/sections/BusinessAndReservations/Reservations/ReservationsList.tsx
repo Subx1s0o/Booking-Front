@@ -1,23 +1,15 @@
 'use client';
-import EditReservations from '@/components/modals/EditReservations';
-import ReservationModal from '@/components/modals/ReservationModal';
+
 import LoadMoreButton from '@/components/ui/LoadMoreButton';
-import { useReservationModals } from '@/hooks/useReservationModals';
+
 import { useReservations } from '@/hooks/useReservations';
 import { useUserStore } from '@/hooks/useUserStore';
-import { AnimatePresence } from 'framer-motion';
+
 import SkeletonLoader from '@/components/common/SkeletonLoader';
 import ErrorFallback from '@/components/common/ErrorFallback';
 import ReservationItem from './ReservationItem';
 
 export default function ReservationsList() {
-    const {
-        choosedReservation,
-        setChoosedReservation,
-        isModalEditOpen,
-        openEditModal,
-        closeModals,
-    } = useReservationModals();
     const { user } = useUserStore();
 
     const { reservations, error, hasMore, loadMore, isLoadingMore } =
@@ -42,7 +34,6 @@ export default function ReservationsList() {
                             key={reservation.id}
                             reservation={reservation}
                             user={user}
-                            choose={() => setChoosedReservation(reservation)}
                         />
                     ))
                 ) : (
@@ -61,25 +52,6 @@ export default function ReservationsList() {
                     <span className="loader"></span>
                 </div>
             )}
-
-            <AnimatePresence>
-                {choosedReservation && !isModalEditOpen && (
-                    <ReservationModal
-                        key="reservation-modal"
-                        reservation={choosedReservation}
-                        close={closeModals}
-                        user={user}
-                        openEdit={openEditModal}
-                    />
-                )}
-                {isModalEditOpen && (
-                    <EditReservations
-                        key="edit-modal"
-                        reservation={choosedReservation}
-                        close={closeModals}
-                    />
-                )}
-            </AnimatePresence>
         </div>
     );
 }

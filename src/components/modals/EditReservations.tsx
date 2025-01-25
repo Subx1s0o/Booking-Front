@@ -1,6 +1,7 @@
 import { Reservation } from '@/types';
 import { motion } from 'framer-motion';
 import UpdateReservationForm from '../forms/Reservations/UpdateReservationForm';
+import { UserInfo } from './components/UserInfo';
 
 export default function EditReservations({
     reservation,
@@ -26,22 +27,22 @@ export default function EditReservations({
                     Edit Reservation
                 </h2>
                 <ul className="mb-5 flex flex-col gap-3">
-                    <li className="text-base">
-                        <span className="font-semibold">First Name: </span>
-                        {reservation?.clientUser.firstName}
-                    </li>
-                    <li className="text-base">
-                        <span className="font-semibold"> Second Name: </span>
-                        {reservation?.clientUser.firstName}
-                    </li>
-                    <li className="text-base">
-                        <span className="font-semibold">Email: </span>
-                        {reservation?.clientUser.email}
-                    </li>
-                    <li className="text-base">
-                        <span className="font-semibold">Phone: </span>
-                        {reservation?.clientUser.phone || '--'}
-                    </li>
+                    <UserInfo
+                        label="First Name"
+                        value={reservation?.clientUser.firstName || null}
+                    />
+                    <UserInfo
+                        label="Second Name"
+                        value={reservation?.clientUser.secondName || null}
+                    />
+                    <UserInfo
+                        label="Email"
+                        value={reservation?.clientUser.email || null}
+                    />
+                    <UserInfo
+                        label="Phone"
+                        value={reservation?.clientUser.phone || null}
+                    />
                 </ul>
                 <UpdateReservationForm
                     reservation={reservation}
