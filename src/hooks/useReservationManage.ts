@@ -16,6 +16,7 @@ export const useReservationManage = (close?: () => void) => {
         const result = await updateReservation(id, { status: 'closed' });
         if (result) {
             queryClient.invalidateQueries({ queryKey: ['reservation', id] });
+            queryClient.invalidateQueries({ queryKey: ['reservations'] });
             toast({
                 title: 'Success',
                 description: 'Reservation closed successfully',

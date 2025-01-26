@@ -38,8 +38,8 @@ export default function ReservationModal({
                 <ul className="mb-5 flex flex-col gap-3">
                     {user?.role === 'client' && (
                         <li className="text-base">
-                            <span className="font-semibold">Job:</span>{' '}
-                            {reservation.businessUser.job}
+                            <span className="font-semibold">Business:</span>{' '}
+                            {reservation.businessUser.business}
                         </li>
                     )}
                     <li className="text-base">

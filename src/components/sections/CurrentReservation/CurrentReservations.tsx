@@ -47,9 +47,9 @@ export default function CurrentReservations({ id }: { id: string }) {
         <div className="flex flex-col">
             <CurrentReservationHeader
                 status={data?.status || 'unknown'}
-                job={
+                business={
                     user?.role === 'client'
-                        ? data?.businessUser?.job
+                        ? data?.businessUser?.business
                         : undefined
                 }
             />

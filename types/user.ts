@@ -7,5 +7,5 @@ export type User = {
     email: string;
     role: 'client' | 'business';
     address?: string;
-    job?: string;
+    business?: string;
 };

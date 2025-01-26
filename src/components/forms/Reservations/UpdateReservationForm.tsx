@@ -43,7 +43,6 @@ export default function UpdateReservationForm({
             reservationDate: data.reservationDate
                 ? new Date(data.reservationDate)
                 : undefined,
-            duration: Number(data.duration),
         };
 
         await handleUpdateReservation(reservation?.id || '', updatedData);

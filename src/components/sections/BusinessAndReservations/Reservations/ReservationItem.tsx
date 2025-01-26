@@ -23,7 +23,7 @@ export default function BusinessUserItem({
                     </h2>
                     <span className="text-sm text-gray-600">
                         {user?.role === 'client'
-                            ? reservation.businessUser.job
+                            ? reservation.businessUser.business
                             : 'Client'}
                     </span>
                 </div>

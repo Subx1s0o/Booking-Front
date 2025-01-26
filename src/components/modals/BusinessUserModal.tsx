@@ -51,7 +51,9 @@ export default function BusinessUserModal({
                     {user.firstName} {user.secondName}
                 </h2>
                 <ul className="mb-5 flex flex-col gap-3">
-                    {user.job && <UserInfo label="Job" value={user.job} />}
+                    {user.business && (
+                        <UserInfo label="Business" value={user.business} />
+                    )}
                     <UserInfo label="Email" value={user.email} />
                     {user.address && (
                         <UserInfo label="Address" value={user.address} />
