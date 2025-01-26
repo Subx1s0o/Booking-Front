@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchBusinessUser } from '@/actions/fetchBusinessUser';
+import { fetchBusinessUsers } from '@/actions/fetchBusinessUsers';
 import { User } from '@/types';
 
 export function useBusinessUsers(initialPage: number) {
@@ -13,7 +13,7 @@ export function useBusinessUsers(initialPage: number) {
     const { data, error } = useQuery({
         queryKey: ['business-users', page],
         queryFn: async () => {
-            const response = await fetchBusinessUser(page);
+            const response = await fetchBusinessUsers(page);
             if (!response) {
                 return { data: [], total: 0, totalPages: 0 };
             }

@@ -1,5 +1,5 @@
 import React from 'react';
-import CurrentReservations from '@/components/sections/CurrentReservation/CurrentReservations';
+import CurrentReservations from '@/components/sections/BusinessAndReservations/CurrentReservation/CurrentReservations';
 
 export default async function CurrentReservationPage({
     params,

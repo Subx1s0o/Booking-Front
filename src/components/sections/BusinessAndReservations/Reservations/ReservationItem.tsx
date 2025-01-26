@@ -18,12 +18,12 @@ export default function BusinessUserItem({
                 <div className="flex flex-col gap-2">
                     <h2 className="text-md font-medium">
                         {user?.role === 'client'
-                            ? `${reservation.businessUser.firstName} ${reservation.businessUser.secondName}`
+                            ? `${reservation.businessUser.business}`
                             : `${reservation.clientUser.firstName} ${reservation.clientUser.secondName}`}
                     </h2>
                     <span className="text-sm text-gray-600">
                         {user?.role === 'client'
-                            ? reservation.businessUser.business
+                            ? reservation.businessUser.address
                             : 'Client'}
                     </span>
                 </div>

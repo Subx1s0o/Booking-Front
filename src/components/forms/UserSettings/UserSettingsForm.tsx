@@ -106,7 +106,7 @@ export default function UserSettingsForm({ close }: { close: () => void }) {
                         control={control}
                         placeholder="Enter your address"
                         name="address"
-                        label="Your Address*"
+                        label="Your Business Address*"
                     />
                 </>
             )}

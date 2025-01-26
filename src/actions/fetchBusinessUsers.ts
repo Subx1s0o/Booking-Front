@@ -5,7 +5,7 @@ import { toast } from '@/hooks/use-toast';
 import { User } from 'types/user';
 import { PaginationResponse } from 'types/pagination-response';
 
-export const fetchBusinessUser = async (page = 1, limit = 7) => {
+export const fetchBusinessUsers = async (page = 1, limit = 7) => {
     try {
         const res: AxiosResponse<PaginationResponse<User>> = await api.get(
             `/users/business?page=${page}&limit=${limit}`,
