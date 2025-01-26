@@ -27,20 +27,34 @@ export default function BusinessUserItem({
                             : 'Client'}
                     </span>
                 </div>
-                <span
-                    className={cn(
-                        'rounded-lg px-4 py-2 text-sm text-gray-600',
-                        {
-                            'bg-green text-white':
-                                reservation.status === 'opened',
-                            'bg-red text-white':
-                                reservation.status === 'closed',
-                        },
-                    )}
-                >
-                    {reservation.status.charAt(0).toUpperCase() +
-                        reservation.status.slice(1)}
-                </span>
+                <div className="flex flex-col gap-2">
+                    <span
+                        className={cn(
+                            'rounded-lg px-4 py-2 text-sm text-gray-600',
+                            {
+                                'bg-green text-white':
+                                    reservation.status === 'opened',
+                                'bg-red text-white':
+                                    reservation.status === 'closed',
+                            },
+                        )}
+                    >
+                        {reservation.status.charAt(0).toUpperCase() +
+                            reservation.status.slice(1)}
+                    </span>
+                    <span className="text-sm text-gray-600">
+                        {reservation?.openedAt
+                            ? new Date(reservation.openedAt).toLocaleDateString(
+                                  'en-GB',
+                                  {
+                                      day: '2-digit',
+                                      month: '2-digit',
+                                      year: 'numeric',
+                                  },
+                              )
+                            : '--'}
+                    </span>
+                </div>
             </Link>
         </li>
     );
