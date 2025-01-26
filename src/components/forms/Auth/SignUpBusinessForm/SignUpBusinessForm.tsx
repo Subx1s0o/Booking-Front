@@ -60,9 +60,9 @@ export default function SignUpBusinessForm() {
             />
             <Input
                 control={control}
-                placeholder="Enter your job"
-                name="job"
-                label="Your Job*"
+                placeholder="Enter your business"
+                name="business"
+                label="Your Business*"
             />
             <Input
                 control={control}

@@ -25,7 +25,7 @@ export default function UserSettingsForm({ close }: { close: () => void }) {
             secondName: user?.secondName || '',
             email: user?.email || '',
             phone: user?.phone ? String(user.phone) : undefined,
-            job: user?.job || undefined,
+            business: user?.business || undefined,
             address: user?.address || undefined,
         },
         resolver: zodResolver(updateUserSchema),
@@ -98,9 +98,9 @@ export default function UserSettingsForm({ close }: { close: () => void }) {
                 <>
                     <Input
                         control={control}
-                        placeholder="Enter your job"
-                        name="job"
-                        label="Your Job*"
+                        placeholder="Enter your business"
+                        name="business"
+                        label="Your Business*"
                     />
                     <Input
                         control={control}

@@ -12,7 +12,11 @@ export const updateUserSchema = z.object({
         .trim()
         .min(1, { message: 'Address is required' })
         .optional(),
-    job: z.string().trim().min(1, { message: 'Job is required' }).optional(),
+    business: z
+        .string()
+        .trim()
+        .min(1, { message: 'Business is required' })
+        .optional(),
     phone: z.string().trim().optional(),
 });
 
