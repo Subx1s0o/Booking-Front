@@ -17,8 +17,11 @@ export default function CurrentReservations({ id }: { id: string }) {
     });
 
     const [isOpen, setIsOpen] = useState(false);
-    const { isLoading: isLoadingManage, handleUpdateReservation } =
-        useReservationManage();
+    const {
+        isLoading: isLoadingManage,
+        handleDeleteReservation,
+        handleCloseReservation,
+    } = useReservationManage();
     const { user } = useUserStore();
     if (!data && isLoading) {
         return (
@@ -45,7 +48,7 @@ export default function CurrentReservations({ id }: { id: string }) {
                         <h1 className="text-md">Reservation</h1>
                         {user?.role === 'client' && (
                             <p className="text-base text-red">
-                                {data?.businessUser?.job}
+                                {data?.businessUser?.job || 'No job'}
                             </p>
                         )}
                     </div>
@@ -67,25 +70,27 @@ export default function CurrentReservations({ id }: { id: string }) {
                             <li>
                                 <p className="text-md">
                                     {' '}
-                                    First name: {data?.clientUser.firstName}
+                                    First name:{' '}
+                                    {data?.clientUser?.firstName || '--'}
                                 </p>
                             </li>
 
                             <li>
                                 <p className="text-md">
-                                    Second name: {data?.clientUser.secondName}
+                                    Second name:{' '}
+                                    {data?.clientUser?.secondName || '--'}
                                 </p>
                             </li>
                             <li>
                                 <p className="text-md">
                                     {' '}
-                                    Email: {data?.clientUser.email}
+                                    Email: {data?.clientUser?.email || '--'}
                                 </p>
                             </li>
                             <li>
                                 <p className="text-md">
                                     {' '}
-                                    Phone: {data?.clientUser.phone || '--'}
+                                    Phone: {data?.clientUser?.phone || '--'}
                                 </p>
                             </li>
                         </>
@@ -93,58 +98,64 @@ export default function CurrentReservations({ id }: { id: string }) {
                         <>
                             <li>
                                 <h2 className="text-center text-lg">
-                                    {data?.businessUser.firstName}{' '}
-                                    {data?.businessUser.secondName}
+                                    {data?.businessUser?.firstName || '--'}{' '}
+                                    {data?.businessUser?.secondName || '--'}
                                 </h2>
                             </li>
                             <li>
                                 <p className="text-md">
                                     {' '}
-                                    Email: {data?.businessUser.email || '--'}
+                                    Email: {data?.businessUser?.email || '--'}
                                 </p>
                             </li>
                             <li>
                                 <p className="text-md">
                                     {' '}
                                     Address:{' '}
-                                    {data?.businessUser.address || '--'}
+                                    {data?.businessUser?.address || '--'}
                                 </p>
                             </li>
                             <li>
                                 <p className="text-md">
                                     {' '}
-                                    Phone: {data?.businessUser.phone || '--'}
+                                    Phone: {data?.businessUser?.phone || '--'}
                                 </p>
                             </li>
                         </>
                     )}
                 </ul>
             </div>
-            {data?.status === 'opened' && (
-                <div className="fixed bottom-16 left-1/2 flex w-[calc(100%-40px)] -translate-x-1/2 items-center justify-center gap-5">
-                    {user?.role === 'business' && (
-                        <Button
-                            variant="outline"
-                            onClick={() => setIsOpen(true)}
-                            className="py-3"
-                        >
-                            Edit
-                        </Button>
-                    )}
+
+            <div className="fixed bottom-16 left-1/2 flex w-[calc(100%-40px)] -translate-x-1/2 items-center justify-center gap-5">
+                {data?.status === 'opened' && user?.role === 'business' && (
+                    <Button
+                        variant="outline"
+                        onClick={() => setIsOpen(true)}
+                        className="py-3"
+                    >
+                        Edit
+                    </Button>
+                )}
+                {data?.status === 'opened' ? (
                     <Button
                         variant="black"
                         disabled={isLoadingManage}
-                        onClick={() =>
-                            handleUpdateReservation(id, {
-                                status: 'closed',
-                            })
-                        }
+                        onClick={() => handleCloseReservation(id)}
                         className="py-3"
                     >
                         {isLoadingManage ? 'Closing...' : 'Close'}
                     </Button>
-                </div>
-            )}
+                ) : (
+                    <Button
+                        variant="black"
+                        disabled={isLoadingManage}
+                        onClick={() => handleDeleteReservation(id)}
+                        className="py-3"
+                    >
+                        {isLoadingManage ? 'Deleting...' : 'Delete'}
+                    </Button>
+                )}
+            </div>
 
             <AnimatePresence>
                 {isOpen && data && (

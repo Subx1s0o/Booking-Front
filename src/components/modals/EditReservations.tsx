@@ -26,24 +26,7 @@ export default function EditReservations({
                 <h2 className="mb-10 text-center text-md font-bold">
                     Edit Reservation
                 </h2>
-                <ul className="mb-5 flex flex-col gap-3">
-                    <UserInfo
-                        label="First Name"
-                        value={reservation?.clientUser.firstName || null}
-                    />
-                    <UserInfo
-                        label="Second Name"
-                        value={reservation?.clientUser.secondName || null}
-                    />
-                    <UserInfo
-                        label="Email"
-                        value={reservation?.clientUser.email || null}
-                    />
-                    <UserInfo
-                        label="Phone"
-                        value={reservation?.clientUser.phone || null}
-                    />
-                </ul>
+
                 <UpdateReservationForm
                     reservation={reservation}
                     close={close}

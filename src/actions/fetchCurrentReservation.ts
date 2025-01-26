@@ -13,13 +13,13 @@ export const fetchCurrentReservation = async (
         return res.data;
     } catch (error) {
         if (error instanceof AxiosError) {
-            toast({
-                title: 'Error',
-                description:
-                    error.response?.data?.message ||
-                    'An unexpected error occurred',
-                variant: 'default',
-            });
+            // toast({
+            //     title: 'Error',
+            //     description:
+            //         error.response?.data?.message ||
+            //         'An unexpected error occurred',
+            //     variant: 'default',
+            // });
         } else {
             toast({
                 title: 'Error',

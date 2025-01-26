@@ -21,11 +21,15 @@ export function useReservations(initialPage: number) {
 
     useEffect(() => {
         if (data) {
-            if (page === 1) {
-                setReservations(data.data);
-            } else {
-                setReservations((prev) => [...prev, ...data.data]);
-            }
+            const uniqueReservations = Array.from(
+                new Map(
+                    [...reservations, ...data.data].map((item) => [
+                        item.id,
+                        item,
+                    ]),
+                ).values(),
+            );
+            setReservations(uniqueReservations);
             setHasMore(page < data.totalPages);
             setIsLoadingMore(false);
         }

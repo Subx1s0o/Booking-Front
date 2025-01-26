@@ -28,6 +28,24 @@
   }
   } 
 
+
+
+
+input[type="date"],
+input[type="time"],
+input[type="number"] {
+  -webkit-appearance: none; 
+  -moz-appearance: textfield; 
+  appearance: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 @media (min-width: 480px) {
   body {
     display: none;
