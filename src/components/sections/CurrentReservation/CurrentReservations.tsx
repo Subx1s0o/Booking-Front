@@ -1,14 +1,16 @@
 'use client';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { fetchCurrentReservation } from '@/actions/fetchCurrentReservation';
 import ErrorFallback from '@/components/common/ErrorFallback';
-import { cn } from '@/lib/utils';
 import { useUserStore } from '@/hooks/useUserStore';
-import Button from '@/components/ui/Button';
-import { AnimatePresence } from 'framer-motion';
-import EditReservations from '@/components/modals/EditReservations';
-import { useState } from 'react';
 import { useReservationManage } from '@/hooks/useReservationManage';
+import CurrentReservationHeader from './CurrentReservationHeader';
+import ClientInfo from './ClientInfo';
+import BusinessInfo from './BusinessInfo';
+import ReservationDetails from './ReservationDetails';
+import ReservationActions from './ReservationActions';
+import EditReservationModal from './EditReservation';
 
 export default function CurrentReservations({ id }: { id: string }) {
     const { data, isLoading, error } = useQuery({
@@ -23,6 +25,7 @@ export default function CurrentReservations({ id }: { id: string }) {
         handleCloseReservation,
     } = useReservationManage();
     const { user } = useUserStore();
+
     if (!data && isLoading) {
         return (
             <div className="flex min-h-[400px] items-center justify-center">
@@ -42,130 +45,66 @@ export default function CurrentReservations({ id }: { id: string }) {
 
     return (
         <div className="flex flex-col">
-            <div className="flex flex-col">
-                <div className="mb-10 flex items-center justify-between">
-                    <div className="flex flex-col gap-2">
-                        <h1 className="text-md">Reservation</h1>
-                        {user?.role === 'client' && (
-                            <p className="text-base text-red">
-                                {data?.businessUser?.job || 'No job'}
-                            </p>
-                        )}
-                    </div>
-                    <span
-                        className={cn(
-                            'rounded-lg px-4 py-3 text-base text-white',
-                            {
-                                'bg-green': data?.status === 'opened',
-                                'bg-red': data?.status === 'closed',
-                            },
-                        )}
-                    >
-                        Status: {data?.status}
-                    </span>
-                </div>
-                <ul className="flex flex-col gap-5">
-                    {user?.role === 'business' ? (
-                        <>
-                            <li>
-                                <p className="text-md">
-                                    {' '}
-                                    First name:{' '}
-                                    {data?.clientUser?.firstName || '--'}
-                                </p>
-                            </li>
-
-                            <li>
-                                <p className="text-md">
-                                    Second name:{' '}
-                                    {data?.clientUser?.secondName || '--'}
-                                </p>
-                            </li>
-                            <li>
-                                <p className="text-md">
-                                    {' '}
-                                    Email: {data?.clientUser?.email || '--'}
-                                </p>
-                            </li>
-                            <li>
-                                <p className="text-md">
-                                    {' '}
-                                    Phone: {data?.clientUser?.phone || '--'}
-                                </p>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li>
-                                <h2 className="text-center text-lg">
-                                    {data?.businessUser?.firstName || '--'}{' '}
-                                    {data?.businessUser?.secondName || '--'}
-                                </h2>
-                            </li>
-                            <li>
-                                <p className="text-md">
-                                    {' '}
-                                    Email: {data?.businessUser?.email || '--'}
-                                </p>
-                            </li>
-                            <li>
-                                <p className="text-md">
-                                    {' '}
-                                    Address:{' '}
-                                    {data?.businessUser?.address || '--'}
-                                </p>
-                            </li>
-                            <li>
-                                <p className="text-md">
-                                    {' '}
-                                    Phone: {data?.businessUser?.phone || '--'}
-                                </p>
-                            </li>
-                        </>
-                    )}
-                </ul>
-            </div>
-
-            <div className="fixed bottom-16 left-1/2 flex w-[calc(100%-40px)] -translate-x-1/2 items-center justify-center gap-5">
-                {data?.status === 'opened' && user?.role === 'business' && (
-                    <Button
-                        variant="outline"
-                        onClick={() => setIsOpen(true)}
-                        className="py-3"
-                    >
-                        Edit
-                    </Button>
-                )}
-                {data?.status === 'opened' ? (
-                    <Button
-                        variant="black"
-                        disabled={isLoadingManage}
-                        onClick={() => handleCloseReservation(id)}
-                        className="py-3"
-                    >
-                        {isLoadingManage ? 'Closing...' : 'Close'}
-                    </Button>
-                ) : (
-                    <Button
-                        variant="black"
-                        disabled={isLoadingManage}
-                        onClick={() => handleDeleteReservation(id)}
-                        className="py-3"
-                    >
-                        {isLoadingManage ? 'Deleting...' : 'Delete'}
-                    </Button>
-                )}
-            </div>
-
-            <AnimatePresence>
-                {isOpen && data && (
-                    <EditReservations
-                        key="edit-modal"
-                        reservation={data}
-                        close={() => setIsOpen(false)}
-                    />
-                )}
-            </AnimatePresence>
+            <CurrentReservationHeader
+                status={data?.status || 'unknown'}
+                job={
+                    user?.role === 'client'
+                        ? data?.businessUser?.job
+                        : undefined
+                }
+            />
+            {user?.role === 'business' ? (
+                <BusinessInfo
+                    firstName={data?.businessUser?.firstName || '--'}
+                    secondName={data?.businessUser?.secondName || '--'}
+                    email={data?.businessUser?.email || '--'}
+                    address={data?.businessUser?.address || '--'}
+                    phone={
+                        data?.businessUser?.phone
+                            ? String(data?.businessUser?.phone)
+                            : '--'
+                    }
+                />
+            ) : (
+                <ClientInfo
+                    firstName={data?.clientUser?.firstName || '--'}
+                    secondName={data?.clientUser?.secondName || '--'}
+                    email={data?.clientUser?.email || '--'}
+                    phone={
+                        data?.clientUser?.phone
+                            ? String(data?.clientUser?.phone)
+                            : '--'
+                    }
+                />
+            )}
+            <ReservationDetails
+                date={
+                    data?.reservationDate
+                        ? new Date(data?.reservationDate).toLocaleDateString(
+                              'en-GB',
+                              {
+                                  day: '2-digit',
+                                  month: '2-digit',
+                                  year: 'numeric',
+                              },
+                          )
+                        : '--'
+                }
+                time={data?.time || '--'}
+                duration={data?.duration ? String(data?.duration) : '--'}
+            />
+            <ReservationActions
+                isLoadingManage={isLoadingManage}
+                status={data?.status || 'unknown'}
+                onEditClick={() => setIsOpen(true)}
+                onCloseClick={() => handleCloseReservation(id)}
+                onDeleteClick={() => handleDeleteReservation(id)}
+            />
+            <EditReservationModal
+                isOpen={isOpen}
+                data={data}
+                close={() => setIsOpen(false)}
+            />
         </div>
     );
 }

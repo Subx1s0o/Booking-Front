@@ -53,7 +53,6 @@ export const useReservationManage = (close?: () => void) => {
 
         if (result) {
             queryClient.invalidateQueries({ queryKey: ['reservations'] });
-            queryClient.invalidateQueries({ queryKey: ['reservations', id] });
             router.push('/booking/reservations');
             toast({
                 title: 'Success',
