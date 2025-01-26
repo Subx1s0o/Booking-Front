@@ -53,7 +53,7 @@ export const useReservationManage = (close?: () => void) => {
 
         if (result) {
             queryClient.invalidateQueries({ queryKey: ['reservations'] });
-            router.push('/booking/reservations');
+
             toast({
                 title: 'Success',
                 description: 'Reservation Deleted successfully',
@@ -62,6 +62,8 @@ export const useReservationManage = (close?: () => void) => {
             setIsLoading(false);
         }
         setIsLoading(false);
+
+        router.push('/booking/reservations');
     };
 
     return {
