@@ -1,9 +1,10 @@
 import { AnimatePresence } from 'framer-motion';
 import EditReservations from '@/components/modals/EditReservations';
+import { Reservation } from 'types/reservation';
 
 interface Props {
     isOpen: boolean;
-    data: any;
+    data: Reservation | undefined;
     close: () => void;
 }
 

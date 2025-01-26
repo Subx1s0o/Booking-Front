@@ -24,7 +24,7 @@ export default function ReservationModal({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 flex w-full items-center justify-center bg-black/40 px-5"
+            className="fixed inset-0 z-10 flex w-full items-center justify-center bg-black/40 px-5"
         >
             <div
                 onClick={(e) => e.stopPropagation()}

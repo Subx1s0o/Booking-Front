@@ -14,7 +14,7 @@ import EditReservationModal from './EditReservation';
 
 export default function CurrentReservations({ id }: { id: string }) {
     const { data, isLoading, error } = useQuery({
-        queryKey: ['reservations', id],
+        queryKey: ['reservation', id],
         queryFn: async () => await fetchCurrentReservation(id),
     });
 
@@ -99,6 +99,7 @@ export default function CurrentReservations({ id }: { id: string }) {
                 onEditClick={() => setIsOpen(true)}
                 onCloseClick={() => handleCloseReservation(id)}
                 onDeleteClick={() => handleDeleteReservation(id)}
+                user={user}
             />
             <EditReservationModal
                 isOpen={isOpen}

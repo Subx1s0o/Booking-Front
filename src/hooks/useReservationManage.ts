@@ -15,7 +15,7 @@ export const useReservationManage = (close?: () => void) => {
         setIsLoading(true);
         const result = await updateReservation(id, { status: 'closed' });
         if (result) {
-            queryClient.invalidateQueries({ queryKey: ['reservations'] });
+            queryClient.invalidateQueries({ queryKey: ['reservation', id] });
             toast({
                 title: 'Success',
                 description: 'Reservation closed successfully',
@@ -35,7 +35,7 @@ export const useReservationManage = (close?: () => void) => {
         const result = await updateReservation(id, data);
         if (result) {
             queryClient.invalidateQueries({ queryKey: ['reservations'] });
-            queryClient.invalidateQueries({ queryKey: ['reservations', id] });
+            queryClient.invalidateQueries({ queryKey: ['reservation', id] });
             toast({
                 title: 'Success',
                 description: 'Reservation closed successfully',
@@ -52,8 +52,13 @@ export const useReservationManage = (close?: () => void) => {
         const result = await deleteReservation(id);
 
         if (result) {
-            queryClient.invalidateQueries({ queryKey: ['reservations'] });
+            queryClient.invalidateQueries({
+                queryKey: ['reservations'],
+                exact: false,
+            });
 
+            router.push('/booking/reservations');
+            router.refresh();
             toast({
                 title: 'Success',
                 description: 'Reservation Deleted successfully',
@@ -62,8 +67,6 @@ export const useReservationManage = (close?: () => void) => {
             setIsLoading(false);
         }
         setIsLoading(false);
-
-        router.push('/booking/reservations');
     };
 
     return {

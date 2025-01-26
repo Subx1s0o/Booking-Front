@@ -3,8 +3,10 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { useReservationManage } from '@/hooks/useReservationManage';
 import { Reservation } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UpdateReservationType } from 'types/updateReservation';
+import { updateReservationSchema } from './edit-schema';
 
 export default function UpdateReservationForm({
     reservation,
@@ -28,6 +30,7 @@ export default function UpdateReservationForm({
             time: reservation?.time || '',
             duration: reservation?.duration || undefined,
         },
+        resolver: zodResolver(updateReservationSchema),
     });
 
     const onSubmit: SubmitHandler<{

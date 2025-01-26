@@ -28,7 +28,7 @@ export default function UserPopover({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 0 }}
                 transition={{ duration: 0.2 }}
-                className="absolute right-5 top-16 w-full max-w-[200px] rounded-xl bg-white px-5 py-3"
+                className="absolute right-5 top-16 z-10 w-full max-w-[200px] rounded-xl bg-white px-5 py-3"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex flex-col">
