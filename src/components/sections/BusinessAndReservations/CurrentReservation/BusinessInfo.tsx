@@ -13,20 +13,25 @@ const BusinessInfo = ({
     address,
     phone,
 }: BusinessInfoProps) => (
-    <ul className="mb-5 flex flex-col gap-5">
+    <ul className="mb-5 flex flex-col gap-3">
         <li>
-            <h2 className="text-center text-lg">
-                {firstName} {secondName}
-            </h2>
+            <p className="text-base font-medium">
+                First name: {firstName || '--'}
+            </p>
         </li>
         <li>
-            <p className="text-md">Email: {email || '--'}</p>
+            <p className="text-base font-medium">
+                Second name: {secondName || '--'}
+            </p>
         </li>
         <li>
-            <p className="text-md">Address: {address || '--'}</p>
+            <p className="text-base font-medium">Email: {email || '--'}</p>
         </li>
         <li>
-            <p className="text-md">Phone: {phone || '--'}</p>
+            <p className="text-base font-medium">Phone: {phone || '--'}</p>
+        </li>
+        <li>
+            <p className="text-base font-medium">Address: {address || '--'}</p>
         </li>
     </ul>
 );

@@ -11,18 +11,22 @@ const ClientInfo = ({
     email,
     phone,
 }: ClientInfoProps) => (
-    <ul className="mb-5 flex flex-col gap-5">
+    <ul className="mb-5 flex flex-col gap-3">
         <li>
-            <p className="text-md">First name: {firstName || '--'}</p>
+            <p className="text-base font-medium">
+                First name: {firstName || '--'}
+            </p>
         </li>
         <li>
-            <p className="text-md">Second name: {secondName || '--'}</p>
+            <p className="text-base font-medium">
+                Second name: {secondName || '--'}
+            </p>
         </li>
         <li>
-            <p className="text-md">Email: {email || '--'}</p>
+            <p className="text-base font-medium">Email: {email || '--'}</p>
         </li>
         <li>
-            <p className="text-md">Phone: {phone || '--'}</p>
+            <p className="text-base font-medium">Phone: {phone || '--'}</p>
         </li>
     </ul>
 );

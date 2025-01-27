@@ -5,6 +5,7 @@ import { toast } from './use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { UpdateReservationType } from 'types/updateReservation';
 import { useRouter } from 'next/navigation';
+import { updateReservationTime } from '@/actions/updateReservationTime';
 
 export const useReservationManage = (close?: () => void) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -28,12 +29,12 @@ export const useReservationManage = (close?: () => void) => {
         setIsLoading(false);
     };
 
-    const handleUpdateReservation = async (
+    const handleUpdateReservationTime = async (
         id: string,
-        data: UpdateReservationType,
+        data: { date: string; time: string },
     ) => {
         setIsLoading(true);
-        const result = await updateReservation(id, data);
+        const result = await updateReservationTime(id, data);
         if (result) {
             queryClient.invalidateQueries({ queryKey: ['reservations'] });
             queryClient.invalidateQueries({ queryKey: ['reservation', id] });
@@ -71,7 +72,7 @@ export const useReservationManage = (close?: () => void) => {
     };
 
     return {
-        handleUpdateReservation,
+        handleUpdateReservationTime,
         handleCloseReservation,
         handleDeleteReservation,
         isLoading,

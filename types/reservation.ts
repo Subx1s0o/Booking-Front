@@ -2,10 +2,9 @@ export type Reservation = {
     id: string;
     clientUserId: string;
     businessUserId: string;
-    reservationDate: string | null | undefined;
+    date: string | null | undefined;
     openedAt: string;
     time: string | null;
-    duration: number | null;
     status: 'opened' | 'closed';
     clientUser: {
         firstName: string;
@@ -19,6 +18,7 @@ export type Reservation = {
         address: string;
         business: string;
         email: string;
+        photo: string;
         phone: number;
     };
 };

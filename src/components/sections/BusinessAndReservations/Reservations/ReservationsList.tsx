@@ -15,7 +15,7 @@ export default function ReservationsList() {
     const { reservations, error, isLoading, hasMore, loadMore, isLoadingMore } =
         useReservations(1);
 
-    if (!reservations.length) {
+    if (isLoading) {
         return <SkeletonLoader />;
     }
 

@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCurrentReservation } from '@/actions/fetchCurrentReservation';
 import ErrorFallback from '@/components/common/ErrorFallback';
@@ -8,17 +7,16 @@ import { useReservationManage } from '@/hooks/useReservationManage';
 import CurrentReservationHeader from './CurrentReservationHeader';
 import ClientInfo from './ClientInfo';
 import BusinessInfo from './BusinessInfo';
-import ReservationDetails from './ReservationDetails';
 import ReservationActions from './ReservationActions';
-import EditReservationModal from './EditReservation';
+import Image from 'next/image';
 
+import ReservationForm from '@/components/forms/ReservationForm/ReservationForm';
 export default function CurrentReservations({ id }: { id: string }) {
     const { data, isLoading, error } = useQuery({
         queryKey: ['reservation', id],
         queryFn: async () => await fetchCurrentReservation(id),
     });
 
-    const [isOpen, setIsOpen] = useState(false);
     const {
         isLoading: isLoadingManage,
         handleDeleteReservation,
@@ -45,13 +43,18 @@ export default function CurrentReservations({ id }: { id: string }) {
 
     return (
         <div className="flex flex-col">
+            <div className="relative mb-5 h-48 w-full">
+                <Image
+                    src={data?.businessUser?.photo || '/images/placeholder.png'}
+                    alt=""
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-t-xl"
+                />
+            </div>
             <CurrentReservationHeader
                 status={data?.status || 'unknown'}
-                business={
-                    user?.role === 'client'
-                        ? data?.businessUser?.business
-                        : undefined
-                }
+                business={data?.businessUser?.business}
             />
             {user?.role === 'business' ? (
                 <BusinessInfo
@@ -77,35 +80,20 @@ export default function CurrentReservations({ id }: { id: string }) {
                     }
                 />
             )}
-            <ReservationDetails
-                date={
-                    data?.reservationDate
-                        ? new Date(data?.reservationDate).toLocaleDateString(
-                              'en-GB',
-                              {
-                                  day: '2-digit',
-                                  month: '2-digit',
-                                  year: 'numeric',
-                              },
-                          )
-                        : '--'
-                }
-                time={data?.time || '--'}
-                duration={data?.duration ? String(data?.duration) : '--'}
-            />
-            <ReservationActions
-                isLoadingManage={isLoadingManage}
-                status={data?.status || 'unknown'}
-                onEditClick={() => setIsOpen(true)}
-                onCloseClick={() => handleCloseReservation(id)}
-                onDeleteClick={() => handleDeleteReservation(id)}
-                user={user}
-            />
-            <EditReservationModal
-                isOpen={isOpen}
-                data={data}
-                close={() => setIsOpen(false)}
-            />
+
+            <ReservationForm
+                id={data?.id}
+                date={data?.date}
+                time={data?.time}
+                isClosed={data?.status === 'closed'}
+            >
+                <ReservationActions
+                    isLoadingManage={isLoadingManage}
+                    status={data?.status || 'unknown'}
+                    onCloseClick={() => handleCloseReservation(id)}
+                    onDeleteClick={() => handleDeleteReservation(id)}
+                />
+            </ReservationForm>
         </div>
     );
 }
