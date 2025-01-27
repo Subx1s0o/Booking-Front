@@ -28,7 +28,7 @@ export default function ReservationsList() {
     return (
         <div className="mb-10">
             <ul className="flex flex-col gap-5">
-                {reservations ? (
+                {reservations.length ? (
                     reservations.map((reservation) => (
                         <ReservationItem
                             key={reservation.id}
