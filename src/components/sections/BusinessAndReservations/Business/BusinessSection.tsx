@@ -8,7 +8,11 @@ export default function BusinessSection() {
     const { user } = useUserStore();
     return (
         <section>
-            {user?.role === 'client' ? <BusinessUsers /> : <ManageBusiness />}
+            {user?.role === 'client' ? (
+                <BusinessUsers />
+            ) : (
+                <ManageBusiness user={user} />
+            )}
         </section>
     );
 }
