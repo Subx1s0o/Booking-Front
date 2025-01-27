@@ -16,12 +16,7 @@ const BusinessInfo = ({
     <ul className="mb-5 flex flex-col gap-3">
         <li>
             <p className="text-base font-medium">
-                First name: {firstName || '--'}
-            </p>
-        </li>
-        <li>
-            <p className="text-base font-medium">
-                Second name: {secondName || '--'}
+                Manager: {firstName || '--'} {secondName || '--'}
             </p>
         </li>
         <li>

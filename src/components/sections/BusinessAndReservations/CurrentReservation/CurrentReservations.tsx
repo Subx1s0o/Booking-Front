@@ -60,7 +60,7 @@ export default function CurrentReservations({ id }: { id: string }) {
                 status={data?.status || 'unknown'}
                 business={data?.businessUser?.business}
             />
-            {user?.role === 'business' ? (
+            {user?.role === 'client' ? (
                 <BusinessInfo
                     firstName={data?.businessUser?.firstName || '--'}
                     secondName={data?.businessUser?.secondName || '--'}

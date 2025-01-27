@@ -42,7 +42,7 @@ export default function CurrentBusinessDetails({
                 Manager: {firstName} {secondName}
             </p>
             <p className="mb-3 text-base">Email: {email}</p>
-            <p className="text-base">Address: {address}</p>
+            <p className="mb-5 text-base">Address: {address}</p>
         </div>
     );
 }
