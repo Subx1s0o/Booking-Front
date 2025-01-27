@@ -34,10 +34,12 @@
 input[type="date"],
 input[type="time"],
 input[type="number"] {
+  direction: ltr;
+  text-align: start;
   -webkit-appearance: none; 
-  -moz-appearance: textfield; 
   appearance: none;
-  text-align: left;
+  padding-left: 10px; 
+  width: 100%; 
 }
 
 input[type="number"]::-webkit-inner-spin-button,
