@@ -3,9 +3,12 @@ import { AxiosError } from 'axios';
 
 import { api } from './api';
 
-export const createReservation = async (id: string) => {
+export const createReservation = async (
+    id: string,
+    data: { date: string; time: string },
+) => {
     try {
-        const res = await api.post(`/reservations/${id}`);
+        const res = await api.post(`/reservations/${id}`, data);
         return res.data;
     } catch (error) {
         if (error instanceof AxiosError) {

@@ -8,4 +8,5 @@ export type User = {
     role: 'client' | 'business';
     address?: string;
     business?: string;
+    photo?: string;
 };
