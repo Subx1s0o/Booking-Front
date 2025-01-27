@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '../../../ui/Input';
+import Input from '@/components/ui/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignInType, signInSchema } from './sign-in.schema';
@@ -8,9 +8,12 @@ import { motion } from 'framer-motion';
 import { login } from '@/actions/login';
 
 import { useRouter } from 'next/navigation';
+import { useTogglePassword } from '@/hooks/useTogglePassword';
+import Icon from '@/components/ui/Icon';
 
 export default function SignInForm() {
     const router = useRouter();
+    const { viewPassword, toggleViewPassword } = useTogglePassword();
     const {
         control,
         handleSubmit,
@@ -48,13 +51,26 @@ export default function SignInForm() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.5 }}
+                className="relative"
             >
                 <Input
                     control={control}
                     placeholder="Enter your password"
                     name="password"
-                    label="Password"
+                    label="Password*"
+                    type={viewPassword ? 'text' : 'password'}
                 />
+                <button
+                    type="button"
+                    onClick={toggleViewPassword}
+                    className="absolute bottom-1.5 right-2"
+                >
+                    <Icon
+                        id={viewPassword ? 'icon-eye' : 'icon-closed-eye'}
+                        w={24}
+                        h={24}
+                    />
+                </button>
             </motion.div>
             <motion.div
                 className="flex w-full flex-col gap-2"

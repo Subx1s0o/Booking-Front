@@ -5,4 +5,6 @@ export type SpriteTypes =
     | 'icon-settings'
     | 'icon-github'
     | 'icon-support'
-    | 'icon-arrow';
+    | 'icon-arrow'
+    | 'icon-eye'
+    | 'icon-closed-eye';
