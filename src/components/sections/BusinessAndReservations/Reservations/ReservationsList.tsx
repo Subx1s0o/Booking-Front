@@ -12,10 +12,10 @@ import ReservationItem from './ReservationItem';
 export default function ReservationsList() {
     const { user } = useUserStore();
 
-    const { reservations, error, hasMore, loadMore, isLoadingMore } =
+    const { reservations, error, isLoading, hasMore, loadMore, isLoadingMore } =
         useReservations(1);
 
-    if (!reservations) {
+    if (!reservations.length) {
         return <SkeletonLoader />;
     }
 
@@ -28,7 +28,7 @@ export default function ReservationsList() {
     return (
         <div className="mb-10">
             <ul className="flex flex-col gap-5">
-                {reservations.length ? (
+                {reservations ? (
                     reservations.map((reservation) => (
                         <ReservationItem
                             key={reservation.id}
