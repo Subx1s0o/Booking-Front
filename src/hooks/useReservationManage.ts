@@ -3,12 +3,13 @@ import { updateReservation } from '@/actions/updateReservation';
 import { useState } from 'react';
 import { toast } from './use-toast';
 import { useQueryClient } from '@tanstack/react-query';
-import { UpdateReservationType } from 'types/updateReservation';
+
 import { useRouter } from 'next/navigation';
 import { updateReservationTime } from '@/actions/updateReservationTime';
 
-export const useReservationManage = (close?: () => void) => {
+export const useReservationManage = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
     const queryClient = useQueryClient();
     const router = useRouter();
 
@@ -24,7 +25,6 @@ export const useReservationManage = (close?: () => void) => {
                 variant: 'default',
             });
             setIsLoading(false);
-            close?.();
         }
         setIsLoading(false);
     };
@@ -33,7 +33,7 @@ export const useReservationManage = (close?: () => void) => {
         id: string,
         data: { date: string; time: string },
     ) => {
-        setIsLoading(true);
+        setIsUpdating(true);
         const result = await updateReservationTime(id, data);
         if (result) {
             queryClient.invalidateQueries({ queryKey: ['reservations'] });
@@ -43,10 +43,9 @@ export const useReservationManage = (close?: () => void) => {
                 description: 'Reservation closed successfully',
                 variant: 'default',
             });
-            setIsLoading(false);
-            close?.();
+            setIsUpdating(false);
         }
-        setIsLoading(false);
+        setIsUpdating(false);
     };
 
     const handleDeleteReservation = async (id: string) => {
@@ -76,5 +75,6 @@ export const useReservationManage = (close?: () => void) => {
         handleCloseReservation,
         handleDeleteReservation,
         isLoading,
+        isUpdating,
     };
 };

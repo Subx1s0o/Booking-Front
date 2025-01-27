@@ -4,12 +4,14 @@ import { User } from 'types/user';
 interface ReservationActionsProps {
     isLoadingManage: boolean;
     status: string;
+    isUpdating: boolean;
     onCloseClick: () => void;
     onDeleteClick: () => void;
 }
 
 const ReservationActions = ({
     isLoadingManage,
+    isUpdating,
     status,
     onCloseClick,
     onDeleteClick,
@@ -18,7 +20,7 @@ const ReservationActions = ({
         {status === 'opened' ? (
             <>
                 <Button variant="outline" type="submit" className="py-3">
-                    Edit
+                    {isUpdating ? 'Editing..' : 'Edit'}
                 </Button>
                 <Button
                     variant="black"

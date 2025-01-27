@@ -7,7 +7,6 @@ import {
     BusinessFormInputs,
     businessFormSchema,
 } from '../BusinessForm/businessFormSchema';
-import { useReservationManage } from '@/hooks/useReservationManage';
 
 interface ReservationFormProps {
     id: string | undefined;
@@ -15,6 +14,10 @@ interface ReservationFormProps {
     date: string | null | undefined;
     isClosed: boolean;
     time: string | null | undefined;
+    onUpdateReservationTime: (
+        id: string,
+        data: BusinessFormInputs,
+    ) => Promise<void>;
 }
 
 export default function ReservationForm({
@@ -23,6 +26,7 @@ export default function ReservationForm({
     date,
     isClosed,
     time,
+    onUpdateReservationTime,
 }: ReservationFormProps) {
     const { handleSubmit, control } = useForm<BusinessFormInputs>({
         defaultValues: {
@@ -31,11 +35,8 @@ export default function ReservationForm({
         },
         resolver: zodResolver(businessFormSchema),
     });
-
-    const { handleUpdateReservationTime } = useReservationManage();
-
     const onSubmit: SubmitHandler<BusinessFormInputs> = async (data) => {
-        await handleUpdateReservationTime(id || '', { ...data });
+        await onUpdateReservationTime(id || '', { ...data });
     };
 
     return (

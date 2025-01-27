@@ -11,16 +11,20 @@ import ReservationActions from './ReservationActions';
 import Image from 'next/image';
 
 import ReservationForm from '@/components/forms/ReservationForm/ReservationForm';
+import { useRouter } from 'next/navigation';
 export default function CurrentReservations({ id }: { id: string }) {
+    const router = useRouter();
     const { data, isLoading, error } = useQuery({
         queryKey: ['reservation', id],
-        queryFn: async () => await fetchCurrentReservation(id),
+        queryFn: async () => await fetchCurrentReservation(id, router),
     });
 
     const {
         isLoading: isLoadingManage,
         handleDeleteReservation,
         handleCloseReservation,
+        handleUpdateReservationTime,
+        isUpdating,
     } = useReservationManage();
     const { user } = useUserStore();
 
@@ -86,9 +90,11 @@ export default function CurrentReservations({ id }: { id: string }) {
                 date={data?.date}
                 time={data?.time}
                 isClosed={data?.status === 'closed'}
+                onUpdateReservationTime={handleUpdateReservationTime}
             >
                 <ReservationActions
                     isLoadingManage={isLoadingManage}
+                    isUpdating={isUpdating}
                     status={data?.status || 'unknown'}
                     onCloseClick={() => handleCloseReservation(id)}
                     onDeleteClick={() => handleDeleteReservation(id)}
