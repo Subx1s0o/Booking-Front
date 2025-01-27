@@ -6,11 +6,15 @@ import { useQueryClient } from '@tanstack/react-query';
 
 export default function ManageBusiness({ user }: { user: User | null }) {
     const [uploading, setUploading] = useState(false);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const queryClient = useQueryClient();
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setSelectedImage(imageUrl);
+
             const formData = new FormData();
             formData.append('photo', file);
 
@@ -57,7 +61,11 @@ export default function ManageBusiness({ user }: { user: User | null }) {
             <div className="flex h-full w-full flex-col items-center justify-center">
                 <div className="relative mb-10 h-48 w-full">
                     <img
-                        src={user?.photo || '/images/placeholder.png'}
+                        src={
+                            selectedImage ||
+                            user?.photo ||
+                            '/images/placeholder.png'
+                        }
                         alt="User's photo"
                         className="absolute inset-0 h-full w-full object-cover"
                     />
