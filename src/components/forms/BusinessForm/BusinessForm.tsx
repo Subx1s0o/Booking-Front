@@ -15,7 +15,11 @@ export default function BusinessForm({
     isSubmitting,
 }: BusinessFormProps) {
     const { handleSubmit, control } = useForm<BusinessFormInputs>({
-        defaultValues: { date: '', time: '' },
+        defaultValues: {
+            date: new Date().toISOString().split('T')[0],
+            time: '12:00',
+        },
+
         resolver: zodResolver(businessFormSchema),
     });
 
@@ -24,8 +28,20 @@ export default function BusinessForm({
             onSubmit={handleSubmit(onSubmit)}
             className="mb-5 flex flex-col gap-5"
         >
-            <Input control={control} name="date" type="date" label="Date" />
-            <Input control={control} name="time" type="time" label="Time" />
+            <Input
+                control={control}
+                name="date"
+                placeholder="DD.MM.YYYY"
+                type="date"
+                label="Date"
+            />
+            <Input
+                control={control}
+                placeholder="HH:MM"
+                name="time"
+                type="time"
+                label="Time"
+            />
             <Button
                 disabled={isSubmitting}
                 variant="black"
