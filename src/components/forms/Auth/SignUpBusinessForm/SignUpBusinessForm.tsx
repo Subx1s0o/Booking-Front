@@ -54,6 +54,13 @@ export default function SignUpBusinessForm() {
             />
             <Input
                 control={control}
+                placeholder="Enter your phone"
+                name="phone"
+                type="number"
+                label="Phone*"
+            />
+            <Input
+                control={control}
                 placeholder="Enter your address"
                 name="address"
                 label="Address*"

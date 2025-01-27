@@ -40,7 +40,7 @@ export const useReservationManage = () => {
             queryClient.invalidateQueries({ queryKey: ['reservation', id] });
             toast({
                 title: 'Success',
-                description: 'Reservation closed successfully',
+                description: 'Reservation time updated successfully',
                 variant: 'default',
             });
             setIsUpdating(false);

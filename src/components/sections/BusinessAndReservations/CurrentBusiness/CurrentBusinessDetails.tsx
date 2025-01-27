@@ -34,7 +34,7 @@ export default function CurrentBusinessDetails({
 
             <h2 className="mb-3 text-lg font-bold">{business}</h2>
 
-            <p className="mb-3 text-base font-medium">+{phone}</p>
+            {phone && <p className="mb-3 text-base font-medium">+{phone}</p>}
 
             <hr className="mb-6 h-0.5 bg-black" />
 
