@@ -11,12 +11,10 @@ import Button from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { register } from '@/actions/register';
-import { useTogglePassword } from '@/hooks/useTogglePassword';
-import Icon from '@/components/ui/Icon';
 
 export default function SignUpBusinessForm() {
     const router = useRouter();
-    const { toggleViewPassword, viewPassword } = useTogglePassword();
+
     const {
         control,
         handleSubmit,
@@ -74,26 +72,15 @@ export default function SignUpBusinessForm() {
                 name="business"
                 label="Your Business*"
             />
-            <div className="relative">
-                <Input
-                    control={control}
-                    placeholder="Enter your password"
-                    name="password"
-                    label="Password*"
-                    type={viewPassword ? 'text' : 'password'}
-                />
-                <button
-                    type="button"
-                    onClick={toggleViewPassword}
-                    className="absolute bottom-1.5 right-2"
-                >
-                    <Icon
-                        id={viewPassword ? 'icon-eye' : 'icon-closed-eye'}
-                        w={24}
-                        h={24}
-                    />
-                </button>
-            </div>
+
+            <Input
+                control={control}
+                placeholder="Enter your password"
+                name="password"
+                label="Password*"
+                eye
+            />
+
             <motion.div
                 className="flex w-full flex-col gap-2"
                 initial={{ opacity: 0 }}
