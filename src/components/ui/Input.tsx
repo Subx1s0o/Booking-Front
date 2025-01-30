@@ -40,7 +40,13 @@ export default function Input({
                             'border-red': errors?.[name],
                         },
                     )}
-                    type={eye && viewPassword ? 'text' : 'password'}
+                    type={
+                        eye
+                            ? viewPassword
+                                ? 'text'
+                                : 'password'
+                            : inputProps.type
+                    }
                 />
                 {eye && (
                     <button
